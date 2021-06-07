@@ -1,0 +1,57 @@
+---
+install_packages: yes
+install_flatpaks: yes
+install_snaps: yes
+install_pips: yes
+install_npms: no
+configure_terminal: yes
+
+package_manager_list:
+  - git
+  - zsh
+  - vim
+  - wget
+  - curl
+  - virtualbox
+  - vagrant
+  - tar
+  - rsync
+  - rclone
+  - python3
+  - python3-pip
+
+distro_spec_package_manager_list: []
+
+flatpak_default_repo: flathub
+flatpak_repos_list:
+  - { name: flathub, url: "https://flathub.org/repo/flathub.flatpakrepo" }
+
+flatpak_packages_list:
+  - org.mozilla.firefox
+  - com.visualstudio.code
+  - io.dbeaver.DBeaverCommunity
+  - org.raspberrypi.rpi-imager
+  - org.zaproxy.ZAP
+  - com.anydesk.Anydesk
+  - com.spotify.Client
+  - com.discordapp.Discord
+  - com.slack.Slack
+  - us.zoom.Zoom
+  - org.videolan.VLC
+  - org.gimp.GIMP
+  - org.inkscape.Inkscape
+  - org.blender.Blender
+  - org.freecadweb.FreeCAD
+  - com.jgraph.drawio.desktop
+
+snap_packages_list:
+  - { name: notable, classic: yes }
+  - cura-slicer
+  - chromium
+
+pip_packages_list:
+  - ansible
+  - docker
+  - virtualenv
+
+npm_packages_list: []

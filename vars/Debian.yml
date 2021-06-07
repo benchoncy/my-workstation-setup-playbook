@@ -1,0 +1,4 @@
+---
+distro_spec_package_manager_list:
+  - openjdk-11-jdk
+  

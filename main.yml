@@ -1,0 +1,46 @@
+---
+- hosts: all
+  
+  vars_files:
+    - vars/default.config.yml
+    - "vars/{{ ansible_os_family }}.yml"
+
+  pre_tasks:
+    - name: Include playbook configuration
+      include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/vars/config.yml"
+    
+    - name: Update apt cache
+      become: true
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+  
+  tasks:
+#    - import_tasks: tasks/install_packages/packagem_install.yml
+#      become: true
+#      when: install_packages
+#      tags: ['package']
+#    
+#    - import_tasks: tasks/install_packages/flatpak_install.yml
+#      become: true
+#      when: install_flatpaks
+#      tags: ['flatpak']
+#    
+#    - import_tasks: tasks/install_packages/snap_install.yml
+#      become: true
+#      when: install_snaps
+#      tags: ['snap']
+#
+#    - import_tasks: tasks/install_packages/pip_install.yml
+#      when: install_pips
+#      tags: ['pip']
+#    
+#    - import_tasks: tasks/install_packages/npm_install.yml
+#      when: install_npms
+#      tags: ['npm']
+
+    - import_tasks: tasks/configure_terminal/main.yml
+      when: configure_terminal
+      tags: ['terminal']

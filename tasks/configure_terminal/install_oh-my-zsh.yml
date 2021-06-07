@@ -1,0 +1,29 @@
+---
+- name: Ensure oh-my-zsh dependencies are installed
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - zsh
+    - git
+    - curl
+  tags: ['oh-my-zsh']
+
+- name: Install oh-my-zsh
+  shell:
+    cmd: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  tags: ['oh-my-zsh']
+
+- name: Find which zsh to use
+  shell:
+    cmd: which zsh
+  register: which_zsh
+  tags: ['oh-my-zsh']
+
+- name: Set zsh as default shell
+  become: yes
+  user:
+    name: "{{ ansible_user }}"
+    shell: "{{ which_zsh.stdout_lines }}"
+  tags: ['oh-my-zsh']

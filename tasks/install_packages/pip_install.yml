@@ -1,0 +1,16 @@
+---
+- name: Ensure python3 & pip packages installed
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - python3
+    - python3-pip
+  when: ((pip_packages_list != None) and (pip_packages_list|length != 0))
+
+- name: Install via pip
+  pip:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ pip_packages_list }}"
+  when: ((pip_packages_list != None) and (pip_packages_list|length != 0))

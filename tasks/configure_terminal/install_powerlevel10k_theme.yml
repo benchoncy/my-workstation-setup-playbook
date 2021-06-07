@@ -1,0 +1,15 @@
+---
+- name: Clone Nerd-fonts repository
+  shell:
+    cmd: git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git /tmp/nerd-fonts
+  tags: ['oh-my-zsh', 'powerlevel10k', 'nerd-fonts']
+
+- name: Install Nerd-fonts
+  shell:
+    cmd: /tmp/nerd-fonts/install.sh
+  tags: ['oh-my-zsh', 'powerlevel10k', 'nerd-fonts']
+
+- name:
+  shell:
+    cmd: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  tags: ['oh-my-zsh', 'powerlevel10k']

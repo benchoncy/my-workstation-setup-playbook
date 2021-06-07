@@ -1,0 +1,4 @@
+# Testing
+.vagrant
+Vagrantfile
+*.log

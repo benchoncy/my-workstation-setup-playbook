@@ -1,0 +1,17 @@
+---
+- name: Ensure nodejs & npm packages installed
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - nodejs
+    - npm
+  when: ((npm_packages_list != None) and (npm_packages_list|length != 0))
+
+- name: Install via npm
+  npm:
+    name: "{{ item }}"
+    global: yes
+    state: present
+  loop: "{{ npm_packages_list }}"
+  when: ((npm_packages_list != None) and (npm_packages_list|length != 0))
