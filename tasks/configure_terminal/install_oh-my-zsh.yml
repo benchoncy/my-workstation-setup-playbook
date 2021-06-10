@@ -9,6 +9,21 @@
     - curl
   tags: ['oh-my-zsh']
 
+- name: If oh-my-zsh folder already exists, remove it
+  file:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+    state: absent
+  tags: ['oh-my-zsh']
+
+- debug:
+    msg: "{{ ansible_env.HOME }}"
+  tags: ['oh-my-zsh']
+
+- name: Install oh-my-zsh
+  shell:
+    cmd: ZSH= sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  tags: ['oh-my-zsh']
+
 - name: Find which zsh to use
   shell:
     cmd: which zsh
@@ -18,18 +33,7 @@
 - name: Set zsh as default shell for user
   become: yes
   user:
-    name: "{{ lookup('env','USER') }}"
+    name: "{{ ansible_env.USER }}"
     shell: "{{ which_zsh.stdout }}"
     state: present
-  tags: ['oh-my-zsh']
-
-- name: If oh-my-zsh folder already exists, remove it
-  file:
-    path: "{{ lookup('env','ZSH') }}"
-    state: absent
-  tags: ['oh-my-zsh']
-
-- name: Install oh-my-zsh
-  shell:
-    cmd: ZSH= sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
   tags: ['oh-my-zsh']
