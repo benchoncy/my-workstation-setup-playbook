@@ -6,7 +6,6 @@
     state: present
   loop:
     - zsh
-    - git
     - curl
   tags: ['oh-my-zsh']
 
@@ -21,9 +20,16 @@
   register: which_zsh
   tags: ['oh-my-zsh']
 
-- name: Set zsh as default shell
+- name: Find current user
+  shell:
+    cmd: echo $USER
+  register: current_username
+  tags: ['oh-my-zsh']
+
+- name: Set zsh as default shell for user
   become: yes
   user:
-    name: "{{ ansible_user }}"
-    shell: "{{ which_zsh.stdout_lines }}"
+    name: "{{ current_username.stdout }}"
+    shell: "{{ which_zsh.stdout }}"
+    state: present
   tags: ['oh-my-zsh']

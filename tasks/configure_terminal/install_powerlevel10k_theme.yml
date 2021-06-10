@@ -1,4 +1,13 @@
 ---
+- name: Ensure nerd-fonts/powerlevel10k dependencies are installed
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - git
+  tags: ['oh-my-zsh', 'powerlevel10k', 'nerd-fonts']
+
 - name: Clone Nerd-fonts repository
   shell:
     cmd: git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git /tmp/nerd-fonts

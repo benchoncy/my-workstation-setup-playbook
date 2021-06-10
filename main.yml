@@ -10,16 +10,17 @@
       include_vars: "{{ item }}"
       with_fileglob:
         - "{{ playbook_dir }}/vars/config.yml"
+      tags: ['always']
     
     - name: Update apt cache
       become: true
       apt:
         update_cache: yes
       when: ansible_os_family == 'Debian'
+      tags: ['always']
   
   tasks:
     - import_tasks: tasks/install_packages/main.yml
-      tags: ['software']
 
     - import_tasks: tasks/configure_terminal/main.yml
       when: configure_terminal
