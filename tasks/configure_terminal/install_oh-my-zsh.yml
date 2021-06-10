@@ -11,7 +11,7 @@
 
 - name: Install oh-my-zsh
   shell:
-    cmd: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    cmd: ZSH= sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
   tags: ['oh-my-zsh']
 
 - name: Find which zsh to use
