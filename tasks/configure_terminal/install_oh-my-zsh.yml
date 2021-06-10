@@ -15,10 +15,6 @@
     state: absent
   tags: ['oh-my-zsh']
 
-- debug:
-    msg: "{{ ansible_env.HOME }}"
-  tags: ['oh-my-zsh']
-
 - name: Install oh-my-zsh
   shell:
     cmd: ZSH= sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
