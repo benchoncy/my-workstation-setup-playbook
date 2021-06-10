@@ -9,6 +9,12 @@
     - curl
   tags: ['oh-my-zsh']
 
+- name: If oh-my-zsh folder already exists, remove it
+  file:
+    path: "{{ lookup('env','ZSH') }}"
+    state: absent
+  tags: ['oh-my-zsh']
+
 - name: Install oh-my-zsh
   shell:
     cmd: ZSH= sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
@@ -20,16 +26,10 @@
   register: which_zsh
   tags: ['oh-my-zsh']
 
-- name: Find current user
-  shell:
-    cmd: echo $USER
-  register: current_username
-  tags: ['oh-my-zsh']
-
 - name: Set zsh as default shell for user
   become: yes
   user:
-    name: "{{ current_username.stdout }}"
+    name: "{{ lookup('env','USER') }}"
     shell: "{{ which_zsh.stdout }}"
     state: present
   tags: ['oh-my-zsh']
