@@ -28,8 +28,6 @@ flatpak_repos_list:
   - { name: flathub, url: "https://flathub.org/repo/flathub.flatpakrepo" }
 
 flatpak_packages_list:
-  - org.mozilla.firefox
-  - com.visualstudio.code
   - io.dbeaver.DBeaverCommunity
   - org.raspberrypi.rpi-imager
   - org.zaproxy.ZAP
@@ -37,21 +35,14 @@ flatpak_packages_list:
   - com.spotify.Client
   - com.discordapp.Discord
   - com.slack.Slack
-  - us.zoom.Zoom
-  - org.videolan.VLC
-  - org.gimp.GIMP
-  - org.inkscape.Inkscape
-  - org.blender.Blender
   - org.freecadweb.FreeCAD
-  - com.jgraph.drawio.desktop
 
 snap_packages_list:
   - { name: notable, classic: yes }
+  - { name: code, classic: yes }
   - cura-slicer
-  - chromium
 
 pip_packages_list:
-  - docker
   - virtualenv
 
 npm_packages_list: []
