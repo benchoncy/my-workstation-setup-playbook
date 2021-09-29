@@ -1,0 +1,14 @@
+---
+- name: Ensure ruby & gem are installed
+  package:
+    name: "{{ item[ansible_distribution] | default(item[ansible_os_family]) | default(item['default']) | default(item) }}"
+    state: present
+  loop:
+  - { Debian:  [ruby-full, build-essential, zlib1g-dev], Fedora: [ruby, ruby-devel, openssl-devel, redhat-rpm-config, "@development-tools"] }
+
+- name: Install via gem
+  npm:
+    name: "{{ item }}"
+    global: yes
+    state: present
+  loop: "{{ combined_profile.gem_packages_list }}"

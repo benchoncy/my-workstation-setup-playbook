@@ -1,0 +1,26 @@
+---
+- name: Add dnf repositories
+  become: yes
+  get_url:
+    dest: "/etc/yum.repos.d/"
+    url: "{{ item }}"
+  loop: "{{ combined_profile.package_repos_list }}"
+  when: add_package_repos
+  tags: ['always']
+
+- name: Add rpmfusion free & nonfree repositories
+  become: yes
+  dnf:
+    name: "{{ item }}"
+    state: present
+    disable_gpg_check: yes
+  loop:
+    - "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm"
+    - "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm"
+  when: control.free_plus_nonfree_repos | default(false)
+  tags: ['always']
+
+- name: Update dnf cache
+  become: yes
+  command: dnf makecache
+  changed_when: false

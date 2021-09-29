@@ -1,22 +1,27 @@
 ---
-- import_tasks: tasks/install_packages/packagem_install.yml
-  become: true
-  when: install_packages
+- import_tasks: tasks/install_packages/package_install.yml
+  become: yes
+  when: add_packages
   tags: ['package']
 
 - import_tasks: tasks/install_packages/flatpak_install.yml
-  become: true
-  when: install_flatpaks
+  become: yes
+  when: add_flatpaks
   tags: ['flatpak']
 
 - import_tasks: tasks/install_packages/snap_install.yml
-  become: true
-  when: install_snaps
+  become: yes
+  when: add_snaps
   tags: ['snap']
+  
 - import_tasks: tasks/install_packages/pip_install.yml
-  when: install_pips
+  when: add_pips
   tags: ['pip']
 
 - import_tasks: tasks/install_packages/npm_install.yml
-  when: install_npms
+  when: add_npms
   tags: ['npm']
+
+- import_tasks: tasks/install_packages/gem_install.yml
+  when: add_gems
+  tags: ['gem']

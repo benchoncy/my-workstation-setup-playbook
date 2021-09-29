@@ -1,0 +1,30 @@
+---
+- name: Add apt repositories
+  become: yes
+  apt_repository: 
+    repo: "{{ item }}"
+    state: present
+  loop: "{{ combined_profile.package_repos_list }}"
+  when: add_package_repos
+  tags: ['always']
+
+- name: Add universe/multiverse free and nonfree repositories
+  become: yes
+  command: "add-apt-repository {{ item }}"
+  loop:
+    - universe
+    - multiverse
+  register: result
+  changed_when: "'Get' in result.stdout"
+  when: control.free_plus_nonfree_repos | default(false)
+  tags: ['always']
+
+- debug:
+    var: result
+
+- name: Update apt cache
+  become: yes
+  apt:
+    update_cache: yes
+  changed_when: false
+  tags: ['always']

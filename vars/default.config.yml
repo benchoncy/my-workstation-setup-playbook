@@ -1,48 +1,49 @@
 ---
-install_packages: yes
-install_flatpaks: yes
-install_snaps: yes
-install_pips: yes
-install_npms: no
-configure_terminal: yes
+control:
+  update_packages: yes
+  profiles_list:
+  - gaming
+  free_plus_nonfree_repos: yes
 
-package_manager_list:
-  - git
-  - zsh
-  - vim
-  - wget
-  - curl
-  - virtualbox
-  - vagrant
-  - tar
-  - rsync
-  - rclone
-  - python3
-  - python3-pip
-  - ansible
+profiles:
+  common:    
+    package_manager_list:
+    - zsh
+    - vim
+    - wget
+    - curl
+    - tar
+    - rsync
+    - rclone
+    
+    flatpak_repos_list:
+    - { name: flathub, url: "https://flathub.org/repo/flathub.flatpakrepo" }
 
-distro_spec_package_manager_list: []
+    flatpak_packages_list:
+    - com.spotify.Client
+    - com.discordapp.Discord
 
-flatpak_default_repo: flathub
-flatpak_repos_list:
-  - { name: flathub, url: "https://flathub.org/repo/flathub.flatpakrepo" }
+  dev:
+    package_manager_list:
+    - git
+    - vagrant
+    - [python3, python3-pip]
+    - ansible-lint
+    - { Debian: openjdk-11-jdk, RedHat: java-11-openjdk }
+    - { Debian: virtualbox, RedHat: VirtualBox }
+    - { Debian:  [ruby-full, build-essential, zlib1g-dev], Fedora: [ruby, ruby-devel, openssl-devel, redhat-rpm-config, "@development-tools"] }
 
-flatpak_packages_list:
-  - io.dbeaver.DBeaverCommunity
-  - org.raspberrypi.rpi-imager
-  - org.zaproxy.ZAP
-  - com.anydesk.Anydesk
-  - com.spotify.Client
-  - com.discordapp.Discord
-  - com.slack.Slack
-  - org.freecadweb.FreeCAD
+    flatpak_packages_list:
+    - io.dbeaver.DBeaverCommunity
+    - org.raspberrypi.rpi-imager
+    - com.slack.Slack
+    - org.freecadweb.FreeCAD
+    - com.prusa3d.PrusaSlicer
 
-snap_packages_list:
-  - { name: notable, classic: yes }
-  - { name: code, classic: yes }
-  - cura-slicer
-
-pip_packages_list:
-  - virtualenv
-
-npm_packages_list: []
+    pip_packages_list:
+    - virtualenv
+    - ansible
+  
+  gaming:
+    package_manager_list:
+    - steam

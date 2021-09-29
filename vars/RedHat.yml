@@ -1,4 +1,0 @@
----
-distro_spec_package_manager_list:
-  - java-11-openjdk
-  - gitflow

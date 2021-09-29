@@ -1,0 +1,12 @@
+---
+- name: Upgrade all packages
+  package:
+    name: "*"
+    state: latest
+  when: control.update_packages | default(false)
+
+- name: Install via package manager
+  package:
+    name: "{{ item[ansible_distribution] | default(item[ansible_os_family]) | default(item['default']) | default(item) }}"
+    state: present
+  loop: "{{ combined_profile.package_manager_list }}"

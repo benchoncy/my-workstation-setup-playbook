@@ -1,9 +1,8 @@
 ---
-- name: Ensure snapd package installed
+- name: Ensure snapd package is installed
   package:
     name: snapd
     state: present
-  when: ((snap_packages_list != None) and (snap_packages_list|length != 0))
 
 - name: Install via snap
   community.general.snap:
@@ -11,5 +10,4 @@
     channel: "{{ item.channel|default(omit) }}"
     classic: "{{ item.classic|default(omit) }}"
     state: present
-  loop: "{{ snap_packages_list }}"
-  when: ((snap_packages_list != None) and (snap_packages_list|length != 0))
+  loop: "{{ combined_profile.snap_packages_list }}"

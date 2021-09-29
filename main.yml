@@ -2,26 +2,36 @@
 - hosts: all
   
   vars_files:
-    - vars/default.config.yml
-    - "vars/{{ ansible_os_family }}.yml"
+    - "vars/default.config.yml"
 
   pre_tasks:
     - name: Include playbook configuration
       include_vars: "{{ item }}"
       with_fileglob:
-        - "{{ playbook_dir }}/vars/config.yml"
+        - "{{ playbook_dir }}/vars/{{ ansible_os_family }}.config.yml"
+        - "{{ playbook_dir }}/vars/{{ ansible_distribution }}.config.yml"
+      tags: ['always']
+
+    - name: Infer control variables
+      include_vars: vars/_inferred.yml
       tags: ['always']
     
-    - name: Update apt cache
-      become: true
-      apt:
-        update_cache: yes
-      when: ansible_os_family == 'Debian'
+    - name: Check if distro specific pre-tasks exist
+      local_action: 
+        module: stat 
+        path: "tasks/distro_pre_tasks/{{ ansible_distribution }}.yml"
+      register: pre_tasks_file
+      tags: ['always']
+
+    - name: Run distro specific pre-tasks
+      include_tasks: "tasks/distro_pre_tasks/{{ ansible_distribution }}.yml"
+      when: pre_tasks_file.stat.exists
       tags: ['always']
   
   tasks:
-    - import_tasks: tasks/install_packages/main.yml
+    - name: Install specified packages
+      include_tasks: tasks/install_packages/main.yml
 
-    - import_tasks: tasks/configure_terminal/main.yml
-      when: configure_terminal
+    - name: Configure terminal
+      import_tasks: tasks/configure_terminal/main.yml
       tags: ['terminal']
