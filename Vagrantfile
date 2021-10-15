@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
   # Create boxes
   boxes = [
-    { :name => "ubuntu", :box => "benchoncy/ubuntu-focal64-desktop-workstation" },
+    { :name => "ubuntu", :box => "benchoncy/ubuntu-2004-desktop-workstation" },
     { :name => "fedora", :box => "benchoncy/fedora-34-desktop-workstation" }
   ]
   boxes.each do |opts|
