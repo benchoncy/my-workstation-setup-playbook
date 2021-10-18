@@ -1,3 +1,0 @@
----
-- import_tasks: tasks/configure_terminal/install_oh-my-zsh.yml
-- import_tasks: tasks/configure_terminal/install_powerlevel10k_theme.yml

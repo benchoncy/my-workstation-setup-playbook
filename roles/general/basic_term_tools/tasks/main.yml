@@ -1,0 +1,12 @@
+---
+- name: Install basic terminal tools
+  become: yes
+  package:
+    name:
+      - vim
+      - wget
+      - curl
+      - tar
+      - rsync
+      - rclone
+    state: present

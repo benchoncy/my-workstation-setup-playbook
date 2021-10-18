@@ -1,0 +1,5 @@
+---
+- name: Enable multiverse repositories
+  apt_repository:
+    repo: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release | lower }} multiverse
+    state: present

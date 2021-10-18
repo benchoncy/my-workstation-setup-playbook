@@ -1,0 +1,25 @@
+---
+- name: Ensure 1password repository is added
+  include_tasks: "add_repo/{{ ansible_os_family }}.yml"
+
+- name: Ensure 1password is present
+  become: yes
+  package:
+    name: 1password
+    state: present
+
+- name: Get latest version of 1password-cli
+  set_fact:
+    onepasswordcli_latest_version: "{{ lookup('url', 'https://app-updates.agilebits.com/product_history/CLI') | regex_search('([0-9]{1,3}\\.){2}[0-9]{1,3}') }}"
+
+- name: Ensure 1password-cli is present
+  become: yes
+  unarchive:
+    remote_src: yes
+    src: https://cache.agilebits.com/dist/1P/op/pkg/v{{ onepasswordcli_latest_version }}/op_linux_amd64_v{{ onepasswordcli_latest_version }}.zip
+    dest: /usr/bin/
+    include:
+      - op
+    mode: 0755
+    owner: root
+    creates: /usr/bin/op

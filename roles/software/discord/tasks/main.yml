@@ -1,0 +1,6 @@
+---
+- name: Ensure discord is present
+  become: yes
+  community.general.flatpak:
+    name: com.discordapp.Discord
+    state: present

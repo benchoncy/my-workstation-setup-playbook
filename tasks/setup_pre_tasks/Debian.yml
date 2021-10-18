@@ -1,0 +1,28 @@
+---
+- name: Ensure arch file exists
+  become: yes
+  command:
+    cmd: touch /var/lib/dpkg/arch
+    creates: /var/lib/dpkg/arch
+
+- name: Esnure correct permissions on arch file
+  file:
+    path: /var/lib/dpkg/arch
+    mode: '0644'
+
+- name: Enable multi-architecture
+  become: yes
+  lineinfile:
+    path: /var/lib/dpkg/arch
+    line: "{{ item }}"
+    state: present
+  loop:
+   - amd64
+   - i386
+
+- name: Update apt cache
+  become: yes
+  apt:
+    update_cache: yes
+  changed_when: false
+  tags: ['always']

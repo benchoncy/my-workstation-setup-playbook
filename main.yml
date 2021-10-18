@@ -5,33 +5,76 @@
     - "vars/default.config.yml"
 
   pre_tasks:
-    - name: Include playbook configuration
-      include_vars: "{{ item }}"
-      with_fileglob:
-        - "{{ playbook_dir }}/vars/{{ ansible_os_family }}.config.yml"
-        - "{{ playbook_dir }}/vars/{{ ansible_distribution }}.config.yml"
-      tags: ['always']
-
-    - name: Infer control variables
-      include_vars: vars/_inferred.yml
-      tags: ['always']
-    
-    - name: Check if distro specific pre-tasks exist
-      local_action: 
-        module: stat 
-        path: "tasks/distro_pre_tasks/{{ ansible_distribution }}.yml"
-      register: pre_tasks_file
-      tags: ['always']
-
     - name: Run distro specific pre-tasks
-      include_tasks: "tasks/distro_pre_tasks/{{ ansible_distribution }}.yml"
-      when: pre_tasks_file.stat.exists
-      tags: ['always']
+      include_tasks: "{{ lookup('first_found', params) }}"
+      vars:
+        params:
+          files:
+            - "{{ ansible_distribution }}.yml"
+            - "{{ ansible_os_family }}.yml"
+            - default.yml
+          paths:
+            - tasks/setup_pre_tasks
+      tags: [always]
   
   tasks:
-    - name: Install specified packages
-      include_tasks: tasks/install_packages/main.yml
+    - name: Include common roles
+      include_role: 
+        name: "{{ role }}"
+      loop:
+        - general/basic_term_tools
+        - package_manager/flatpak
+        - package_manager/snaps
+        - software/firefox
+      loop_control:
+        loop_var: role
+      tags: [always, common]
 
-    - name: Configure terminal
-      import_tasks: tasks/configure_terminal/main.yml
-      tags: ['terminal']
+    - name: Include password manager
+      include_role:
+        name: software/1password
+      tags: [always, password_management]
+
+    #- name: Include dev roles
+    #  incldue_role:
+    #    name: "{{ role }}"
+    #  loop:
+    #    - configuration/dotfiles
+    #    - configuration/terminal
+    #    - lang/python
+    #    - lang/java
+    #    - lang/ruby
+    #    - lang/go
+    #    - lang/cpp
+    #    - software/git
+    #    - software/vscode
+    #    - software/ansible
+    #    - software/jekyll
+    #    - software/vagrant
+    #    - software/virtualbox
+    #    - software/dbeaver
+    #    - software/chromium
+    #  loop_control:
+    #    loop_var: role
+    #  tags: [always, dev]
+
+    - name: Include 3dprint roles
+      include_role:
+        name: "{{ role }}"
+      loop:
+        - software/freecad
+        - software/prusa_slicer
+      loop_control:
+        loop_var: role
+      tags: [always, 3dprint]
+
+    - name: Include gaming roles
+      include_role:
+        name: "{{ role }}"
+      loop:
+        - software/steam
+        - software/spotify
+        - software/discord
+      loop_control:
+        loop_var: role
+      tags: [always, gaming]

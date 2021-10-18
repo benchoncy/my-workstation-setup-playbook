@@ -1,0 +1,6 @@
+---
+- name: Ensure snapd package is present
+  become: yes
+  package:
+    name: snapd
+    state: present
