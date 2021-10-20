@@ -1,0 +1,16 @@
+---
+- name: Ensure python is installed
+  become: yes
+  package:
+    name: 
+      - python3
+      - python3-pip
+    state: present
+
+- name: Ensure ansible pip packages are present
+  pip:
+    name: "{{ item }}"
+    state: present
+  loop: 
+    - ansible
+    - ansible-lint[community,yamllint]

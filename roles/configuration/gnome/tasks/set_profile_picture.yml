@@ -1,0 +1,28 @@
+---
+- name: Verify profile picture
+  stat:
+    path: "/var/lib/AccountsService/icons/{{ ansible_env.USER }}"
+    checksum_algorithm: sha256
+  register: profile_picture
+
+- name: Copy profile picture
+  become: yes
+  copy:
+    src: "{{ profile_pic }}"
+    dest: "/var/lib/AccountsService/icons/{{ ansible_env.USER }}"
+  when: (not profile_picture.stat.exists) or (profile_picture.stat.checksum != profile_pic_checksum)
+
+- name: Ensure user file exists
+  become: yes
+  lineinfile:
+    path: "/var/lib/AccountsService/users/{{ ansible_env.USER }}"
+    line: "[User]"
+    create: yes
+
+- name: Set profile picture
+  become: yes
+  lineinfile:
+    path: "/var/lib/AccountsService/users/{{ ansible_env.USER }}"
+    regexp: '^Icon='
+    line: "Icon=/var/lib/AccountsService/icons/{{ ansible_env.USER }}"
+    insertafter: '^[User]'

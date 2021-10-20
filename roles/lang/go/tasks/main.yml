@@ -1,0 +1,16 @@
+---
+- name: Get latest version of go
+  set_fact:
+    golang_latest_version: "{{ lookup('url', 'https://pkg.go.dev/std?tab=versions') | regex_search('go([0-9]{1,3}\\.){2}[0-9]{1,3}') }}"
+
+- name: Ensure go is present
+  become: yes
+  unarchive:
+    remote_src: yes
+    src: "https://golang.org/dl/{{ golang_latest_version }}.linux-amd64.tar.gz"
+    dest: /usr/local/
+    include:
+      - go
+    mode: 0755
+    owner: root
+    creates: /usr/local/go

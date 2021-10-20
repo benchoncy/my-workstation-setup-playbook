@@ -1,0 +1,14 @@
+---
+- name: Clone dotfiles repo to ~/.cfg
+  git:
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ ansible_env.HOME }}/.cfg"
+    bare: yes
+
+- name: Checkout dotfiles
+  shell: |
+    alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+    config checkout -f
+    config config status.showUntrackedFiles no
+  args:
+    creates: "{{ ansible_env.HOME }}/.gitignore"

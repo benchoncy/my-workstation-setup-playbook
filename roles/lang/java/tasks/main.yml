@@ -1,0 +1,10 @@
+---
+- name: Ensure open-jdk is present
+  become: yes
+  package:
+    name: "{{ java_package[ansible_os_family] }}"
+    state: present
+  vars:
+    java_package:
+      Debian: default-jdk
+      RedHat: java-latest-openjdk

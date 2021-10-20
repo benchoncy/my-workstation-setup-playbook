@@ -1,0 +1,10 @@
+---
+- name: Ensure c++ compiler is present
+  become: yes
+  package:
+    name: "{{ cpp_package[ansible_os_family] }}"
+    state: present
+  vars:
+    cpp_package:
+      Debian: build-essential
+      RedHat: gcc-c++

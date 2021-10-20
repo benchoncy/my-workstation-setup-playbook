@@ -1,10 +1,27 @@
 ---
 - hosts: all
+  gather_facts: yes
   
   vars_files:
-    - "vars/default.config.yml"
+    - vars/default.config.yml
 
   pre_tasks:
+    - name: test
+      debug:
+        var: ansible_env.XDG_CURRENT_DESKTOP
+
+    - name: test
+      debug:
+        var: ansible_facts
+
+    - meta: end_play
+
+    - name: Include playbook configuration.
+      include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/config.yml"
+      tags: ['always']
+    
     - name: Run distro specific pre-tasks
       include_tasks: "{{ lookup('first_found', params) }}"
       vars:
@@ -17,64 +34,82 @@
             - tasks/setup_pre_tasks
       tags: [always]
   
-  tasks:
-    - name: Include common roles
-      include_role: 
-        name: "{{ role }}"
-      loop:
-        - general/basic_term_tools
-        - package_manager/flatpak
-        - package_manager/snaps
-        - software/firefox
-      loop_control:
-        loop_var: role
-      tags: [always, common]
+  roles:
+    - role: general/basic_term_tools
+      tags: [ always, common ]
 
-    - name: Include password manager
-      include_role:
-        name: software/1password
-      tags: [always, password_management]
+    - role: package_manager/flatpak
+      tags: [ always, common, software, package_manager ]
+    
+    - role: package_manager/snaps
+      tags: [ always, common, software, package_manager ]
+    
+    - role: software/firefox
+      tags: [ always, common, software, browser ]
 
-    #- name: Include dev roles
-    #  incldue_role:
-    #    name: "{{ role }}"
-    #  loop:
-    #    - configuration/dotfiles
-    #    - configuration/terminal
-    #    - lang/python
-    #    - lang/java
-    #    - lang/ruby
-    #    - lang/go
-    #    - lang/cpp
-    #    - software/git
-    #    - software/vscode
-    #    - software/ansible
-    #    - software/jekyll
-    #    - software/vagrant
-    #    - software/virtualbox
-    #    - software/dbeaver
-    #    - software/chromium
-    #  loop_control:
-    #    loop_var: role
-    #  tags: [always, dev]
+    - role: software/1password
+      tags: [ always, password_management, software ]
 
-    - name: Include 3dprint roles
-      include_role:
-        name: "{{ role }}"
-      loop:
-        - software/freecad
-        - software/prusa_slicer
-      loop_control:
-        loop_var: role
-      tags: [always, 3dprint]
+    - role: configuration/dotfiles
+      tags: [ dev, configuration ]
 
-    - name: Include gaming roles
-      include_role:
-        name: "{{ role }}"
-      loop:
-        - software/steam
-        - software/spotify
-        - software/discord
-      loop_control:
-        loop_var: role
-      tags: [always, gaming]
+    - role: configuration/terminal
+      tags: [ dev, configuration ]
+
+    - role: lang/python
+      tags: [ dev, lang ]
+
+    - role: lang/java
+      tags: [ dev, lang ]
+
+    - role: lang/ruby
+      tags: [ dev, lang ]
+
+    - role: lang/go
+      tags: [ dev, lang ]
+
+    - role: lang/cpp
+      tags: [ dev, lang ]
+
+    - role: software/git
+      tags: [ dev, software ]
+
+    - role: software/vscode
+      tags: [ dev, software ]
+
+    - role: software/ansible
+      tags: [ dev, software ]
+
+    - role: software/jekyll
+      tags: [ dev, software ]
+
+    - role: software/vagrant
+      tags: [ dev, software ]
+
+    - role: software/virtualbox
+      tags: [ dev, software ]
+
+    - role: software/dbeaver
+      tags: [ dev, software ]
+
+    - role: software/chromium
+      tags: [ dev, software ]
+
+    - role: software/freecad
+      tags: [ 3dprint, software ]
+
+    - role: software/prusa_slicer
+      tags: [ 3dprint, software ]
+
+    - role: software/steam
+      tags: [ gaming, software ]
+
+    - role: software/spotify
+      tags: [ gaming, dev, software ]
+
+    - role: software/discord
+      tags: [ gaming, software ]
+
+    #- role: configuration/gnome
+    #  when: ([ansible_env.XDG_CURRENT_DESKTOP | default(''), ansible_env.ORIGINAL_XDG_CURRENT_DESKTOP | default(''), desktop_env | default('')] | join('') | regex_search('gnome', ignorecase=True)) != ''
+    #  tags: [ never, desktop_env, gnome, configuration ]

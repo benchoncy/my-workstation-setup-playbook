@@ -1,0 +1,36 @@
+---
+- name: Ensure oh-my-zsh dependencies are installed
+  become: yes
+  package:
+    name:
+      - zsh
+      - curl
+    state: present
+  tags: ['oh-my-zsh']
+
+- name: Check if oh-my-zsh folder already exists
+  stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+  register: ohmyzsh_folder
+  tags: ['oh-my-zsh']
+
+- name: Download oh-my-zsh
+  shell:
+    cmd: ZSH= sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+  when: (not ohmyzsh_folder.stat.exists)
+  tags: ['oh-my-zsh']
+
+- name: Find which zsh to use
+  shell:
+    cmd: which zsh
+  register: which_zsh
+  changed_when: false
+  tags: ['oh-my-zsh']
+
+- name: Set zsh as default shell for user
+  become: yes
+  user:
+    name: "{{ ansible_env.USER }}"
+    shell: "{{ which_zsh.stdout }}"
+    state: present
+  tags: ['oh-my-zsh']

@@ -1,14 +1,12 @@
 ---
 - name: Ensure arch file exists
   become: yes
-  command:
-    cmd: touch /var/lib/dpkg/arch
-    creates: /var/lib/dpkg/arch
-
-- name: Esnure correct permissions on arch file
   file:
     path: /var/lib/dpkg/arch
+    state: touch
     mode: '0644'
+    modification_time: preserve
+    access_time: preserve
 
 - name: Enable multi-architecture
   become: yes

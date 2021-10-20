@@ -1,0 +1,3 @@
+---
+- import_tasks: tasks/install_oh-my-zsh.yml
+- import_tasks: tasks/install_powerlevel10k_theme.yml

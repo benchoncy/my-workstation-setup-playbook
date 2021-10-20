@@ -1,0 +1,18 @@
+---
+- name: Ensure ruby is present
+  become: yes
+  package:
+    name: "{{ ruby_package[ansible_os_family] }}"
+    state: present
+  vars:
+    ruby_package:
+      Debian: 
+        - ruby-full
+        - build-essential
+        - zlib1g-dev
+      RedHat: 
+        - ruby
+        - ruby-devel
+        - openssl-devel
+        - redhat-rpm-config
+        - "@development-tools"

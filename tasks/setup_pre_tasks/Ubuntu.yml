@@ -3,3 +3,5 @@
   apt_repository:
     repo: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release | lower }} multiverse
     state: present
+
+- include_tasks: tasks/setup_pre_tasks/Debian.yml

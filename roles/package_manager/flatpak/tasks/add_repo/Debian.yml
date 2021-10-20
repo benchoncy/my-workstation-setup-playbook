@@ -1,0 +1,6 @@
+---
+- name: Add apt repo
+  become: yes
+  apt_repository:
+    repo: ppa:alexlarsson/flatpak
+    state: present

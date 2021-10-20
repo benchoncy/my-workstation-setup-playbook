@@ -11,6 +11,7 @@ Vagrant.configure("2") do |config|
         config.vm.provision "ansible" do |ansible|
           ansible.playbook = "main.yml"
           ansible.limit = "all"
+          ansible.raw_arguments = ["--tags=gnome"]
         end
         config.vm.provision :reload
       end

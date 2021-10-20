@@ -1,0 +1,6 @@
+---
+- name: Ensure git is present
+  become: yes
+  package:
+    name: git
+    state: present

@@ -1,7 +1,4 @@
 ---
-- name: Ensure steam repository is added
-  include_tasks: "add_repo/{{ ansible_os_family }}.yml"
-
 - name: Ensure steam is present
   become: yes
   package:
