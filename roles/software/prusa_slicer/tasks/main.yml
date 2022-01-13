@@ -1,6 +1,0 @@
----
-- name: Ensure prusa slicer is present
-  become: yes
-  community.general.flatpak:
-    name: com.prusa3d.PrusaSlicer
-    state: present

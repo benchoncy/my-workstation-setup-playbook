@@ -1,6 +1,0 @@
----
-- name: Ensure steam is present
-  become: yes
-  package:
-    name: steam
-    state: present

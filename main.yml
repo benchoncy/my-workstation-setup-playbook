@@ -6,16 +6,6 @@
     - vars/default.config.yml
 
   pre_tasks:
-    - name: test
-      debug:
-        var: ansible_env.XDG_CURRENT_DESKTOP
-
-    - name: test
-      debug:
-        var: ansible_facts
-
-    - meta: end_play
-
     - name: Include playbook configuration.
       include_vars: "{{ item }}"
       with_fileglob:
@@ -45,10 +35,10 @@
       tags: [ always, common, software, package_manager ]
     
     - role: software/firefox
-      tags: [ always, common, software, browser ]
+      tags: [ common, software, browser ]
 
     - role: software/1password
-      tags: [ always, password_management, software ]
+      tags: [ password_management, software ]
 
     - role: configuration/dotfiles
       tags: [ dev, configuration ]
@@ -89,27 +79,8 @@
     - role: software/virtualbox
       tags: [ dev, software ]
 
-    - role: software/dbeaver
-      tags: [ dev, software ]
-
     - role: software/chromium
       tags: [ dev, software ]
 
     - role: software/freecad
       tags: [ 3dprint, software ]
-
-    - role: software/prusa_slicer
-      tags: [ 3dprint, software ]
-
-    - role: software/steam
-      tags: [ gaming, software ]
-
-    - role: software/spotify
-      tags: [ gaming, dev, software ]
-
-    - role: software/discord
-      tags: [ gaming, software ]
-
-    #- role: configuration/gnome
-    #  when: ([ansible_env.XDG_CURRENT_DESKTOP | default(''), ansible_env.ORIGINAL_XDG_CURRENT_DESKTOP | default(''), desktop_env | default('')] | join('') | regex_search('gnome', ignorecase=True)) != ''
-    #  tags: [ never, desktop_env, gnome, configuration ]

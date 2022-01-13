@@ -1,6 +1,0 @@
----
-- name: Ensure spotify is present
-  become: yes
-  community.general.flatpak:
-    name: com.spotify.Client
-    state: present
