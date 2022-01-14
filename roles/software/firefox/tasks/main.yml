@@ -1,17 +1,17 @@
 ---
-- name: Ensure firefox flatpak is present
+- name: Ensure Firefox flatpak is present
   become: yes
   community.general.flatpak:
     name: org.mozilla.firefox
     state: present
 
-- name: Ensure firefox snap is absent
+- name: Ensure Firefox snap is absent
   become: yes
   community.general.snap:
     name: firefox
     state: absent
 
-- name: Ensure firefox package is absent
+- name: Ensure Firefox package is absent
   become: yes
   package:
     name: firefox

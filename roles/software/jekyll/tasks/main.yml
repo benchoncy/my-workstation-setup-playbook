@@ -1,5 +1,5 @@
 ---
-- name: Ensure jekyll is present
+- name: Ensure Jekyll is present
   community.general.gem:
     name: "{{ item }}"
     state: present

@@ -1,0 +1,12 @@
+---
+- name: Ensure Cura is present
+  become: yes
+  community.general.snap:
+    name: cura-slicer
+    state: present
+
+- name: Ensure Cura can detect USB media
+  become: yes
+  shell: |
+    snap connect cura-slicer:mount-observe
+    snap connect cura-slicer:removable-media

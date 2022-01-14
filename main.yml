@@ -84,3 +84,6 @@
 
     - role: software/freecad
       tags: [ 3dprint, software ]
+    
+    - role: software/cura
+      tags: [ 3dprint, software ]

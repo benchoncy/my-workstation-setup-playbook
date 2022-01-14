@@ -1,5 +1,5 @@
 ---
-- name: Ensure chromium is present
+- name: Ensure Chromium is present
   become: yes
   community.general.flatpak:
     name: org.chromium.Chromium

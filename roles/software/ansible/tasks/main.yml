@@ -1,5 +1,5 @@
 ---
-- name: Ensure python is installed
+- name: Ensure Python is installed
   become: yes
   package:
     name: 
@@ -7,7 +7,7 @@
       - python3-pip
     state: present
 
-- name: Ensure ansible pip packages are present
+- name: Ensure Ansible pip packages are present
   pip:
     name: "{{ item }}"
     state: present

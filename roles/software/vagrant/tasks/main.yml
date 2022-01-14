@@ -1,5 +1,5 @@
 ---
-- name: Ensure vagrant is present
+- name: Ensure Vagrant is present
   become: yes
   package:
     name: vagrant
