@@ -2,10 +2,8 @@
 
 The goal of this playbook is to enable a quick, repeatable and testable method of configuring my Linux desktop computer.
 
-The playbook is written with the intent to support both Ubuntu and Fedora machines.
-
 This playbook aims to:
-- work on Linux distros I use commonly
+- Support both Ubuntu and Fedora machines
 - Install:
 	- software I use day-to-day
 	- programming languages/interpreters/compilers
