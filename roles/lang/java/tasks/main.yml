@@ -1,6 +1,6 @@
 ---
 - name: Ensure open-jdk is present
-  become: yes
+  become: true
   package:
     name: "{{ java_package[ansible_os_family] }}"
     state: present
