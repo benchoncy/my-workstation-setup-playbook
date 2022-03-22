@@ -10,7 +10,7 @@
       include_vars: "{{ item }}"
       with_fileglob:
         - "{{ playbook_dir }}/config.yml"
-      tags: ['always']
+      tags: [ always ]
     
     - name: Run distro specific pre-tasks
       include_tasks: "{{ lookup('first_found', params) }}"
@@ -22,20 +22,20 @@
             - default.yml
           paths:
             - tasks/setup_pre_tasks
-      tags: [always]
+      tags: [ always ]
   
   roles:
     - role: general/basic_term_tools
-      tags: [ always, common ]
+      tags: [ always ]
 
     - role: package_manager/flatpak
-      tags: [ always, common, software, package_manager ]
+      tags: [ always, software, package_manager ]
     
     - role: package_manager/snaps
-      tags: [ always, common, software, package_manager ]
+      tags: [ always, software, package_manager ]
     
     - role: software/firefox
-      tags: [ common, software, browser ]
+      tags: [ software, browser ]
 
     - role: software/1password
       tags: [ password_management, software ]
@@ -70,7 +70,7 @@
     - role: software/ansible
       tags: [ dev, software ]
 
-    - role: software/jekyll
+    - role: software/jekyll # Replace with Hugo
       tags: [ dev, software ]
 
     - role: software/vagrant

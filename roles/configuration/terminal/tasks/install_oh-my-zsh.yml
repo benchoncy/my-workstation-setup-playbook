@@ -1,6 +1,6 @@
 ---
 - name: Ensure oh-my-zsh dependencies are installed
-  become: yes
+  become: true
   package:
     name:
       - zsh
@@ -28,7 +28,7 @@
   tags: ['oh-my-zsh']
 
 - name: Set zsh as default shell for user
-  become: yes
+  become: true
   user:
     name: "{{ ansible_env.USER }}"
     shell: "{{ which_zsh.stdout }}"

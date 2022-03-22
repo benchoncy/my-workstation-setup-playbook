@@ -1,6 +1,6 @@
 ---
 - name: Ensure ruby is present
-  become: yes
+  become: true
   package:
     name: "{{ ruby_package[ansible_os_family] }}"
     state: present

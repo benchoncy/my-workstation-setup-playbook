@@ -23,4 +23,4 @@
   apt:
     update_cache: yes
   changed_when: false
-  tags: ['always']
+  tags: [ always ]

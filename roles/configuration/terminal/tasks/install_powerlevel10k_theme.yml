@@ -1,6 +1,6 @@
 ---
 - name: Ensure nerd-fonts/powerlevel10k dependencies are installed
-  become: yes
+  become: true
   package:
     name:
       - git
