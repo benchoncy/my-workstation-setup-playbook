@@ -1,7 +1,0 @@
----
-- name: Ensure VS Code is present
-  become: yes
-  community.general.snap:
-    name: code
-    classic: yes
-    state: present

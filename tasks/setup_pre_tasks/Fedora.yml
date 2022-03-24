@@ -1,9 +1,0 @@
----
-- name: Enable rpmfussion repositories
-  become: yes
-  dnf:
-    name: "{{ item }}"
-    disable_gpg_check: yes
-  loop:
-    - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_version }}.noarch.rpm
-    - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_version }}.noarch.rpm

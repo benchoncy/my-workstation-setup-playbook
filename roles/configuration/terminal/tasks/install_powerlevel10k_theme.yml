@@ -1,6 +1,5 @@
 ---
 - name: Ensure nerd-fonts/powerlevel10k dependencies are installed
-  become: true
   package:
     name:
       - git
@@ -12,11 +11,12 @@
     repo: https://github.com/ryanoasis/nerd-fonts.git
     dest: /tmp/nerd-fonts
     depth: 1
+    version: "{{ nerdfonts_version }}"
   changed_when: false
   tags: ['oh-my-zsh', 'powerlevel10k', 'nerd-fonts']
 
 - name: Install Nerd-fonts
-  shell:
+  command:
     cmd: /tmp/nerd-fonts/install.sh
   args:
     creates:
@@ -28,4 +28,4 @@
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/powerlevel10k"
     depth: 1
-  tags: ['oh-my-zsh', 'powerlevel10k']
+    version: "{{ powerlevel10k_version }}"

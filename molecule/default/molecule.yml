@@ -1,0 +1,14 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+platforms:
+  - name: instance
+    box: generic/${MOLECULE_DISTRO:-fedora35}
+    memory: 512
+    cpus: 1
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

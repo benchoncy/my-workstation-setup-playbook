@@ -1,89 +1,44 @@
 ---
 - hosts: all
   gather_facts: yes
-  
+
   vars_files:
     - vars/default.config.yml
 
   pre_tasks:
-    - name: Include playbook configuration.
+    - name: Include playbook configuration
       include_vars: "{{ item }}"
       with_fileglob:
         - "{{ playbook_dir }}/config.yml"
-      tags: [ always ]
-    
+
     - name: Run distro specific pre-tasks
-      include_tasks: "{{ lookup('first_found', params) }}"
-      vars:
-        params:
-          files:
-            - "{{ ansible_distribution }}.yml"
-            - "{{ ansible_os_family }}.yml"
-            - default.yml
-          paths:
-            - tasks/setup_pre_tasks
-      tags: [ always ]
-  
+      include_tasks: "tasks/setup_pre_tasks/{{ ansible_distribution | lower }}.yml"
+
   roles:
-    - role: general/basic_term_tools
-      tags: [ always ]
+    - role: geerlingguy.ruby
+      become: yes
+    - role: geerlingguy.go
+      become: yes
+    - role: darkwizard242.onepassword
+      become: yes
+    - role: geerlingguy.ansible
+      become: yes
 
-    - role: package_manager/flatpak
-      tags: [ always, software, package_manager ]
-    
-    - role: package_manager/snaps
-      tags: [ always, software, package_manager ]
-    
-    - role: software/firefox
-      tags: [ software, browser ]
+  tasks:
+    - name: Ensure common terminal tools are present
+      become: yes
+      package:
+        name: "{{ common_term_tools }}"
+        state: present
 
-    - role: software/1password
-      tags: [ password_management, software ]
+    - name: Install package managers
+      import_tasks: tasks/package_manager/main.yml
 
-    - role: configuration/dotfiles
-      tags: [ dev, configuration ]
+    - name: Install general use software (browsers, office, etc)
+      import_tasks: tasks/gen/main.yml
 
-    - role: configuration/terminal
-      tags: [ dev, configuration ]
+    - name: Install programming languages
+      include_tasks: tasks/lang/main.yml
 
-    - role: lang/python
-      tags: [ dev, lang ]
-
-    - role: lang/java
-      tags: [ dev, lang ]
-
-    - role: lang/ruby
-      tags: [ dev, lang ]
-
-    - role: lang/go
-      tags: [ dev, lang ]
-
-    - role: lang/cpp
-      tags: [ dev, lang ]
-
-    - role: software/git
-      tags: [ dev, software ]
-
-    - role: software/vscode
-      tags: [ dev, software ]
-
-    - role: software/ansible
-      tags: [ dev, software ]
-
-    - role: software/jekyll # Replace with Hugo
-      tags: [ dev, software ]
-
-    - role: software/vagrant
-      tags: [ dev, software ]
-
-    - role: software/virtualbox
-      tags: [ dev, software ]
-
-    - role: software/chromium
-      tags: [ dev, software ]
-
-    - role: software/freecad
-      tags: [ 3dprint, software ]
-    
-    - role: software/cura
-      tags: [ 3dprint, software ]
+    - name: Install dev tools
+      include_tasks: tasks/dev_tools/main.yml

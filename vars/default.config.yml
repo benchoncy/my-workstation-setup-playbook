@@ -1,6 +1,22 @@
 ---
 dotfiles_repo: https://github.com/benchoncy/dotfiles.git
+dotfiles_repo_version: master
 
-profile_pic: images/me.png
-profile_pic_checksum: 9afefe756637480e8e33785e42481a05fc40fe04366348d8f78abee2c9a9feb7
+nerdfonts_version: v2.1.0
+powerlevel10k_version: v1.16.1
 
+common_term_tools:
+  - vim
+  - wget
+  - curl
+  - tar
+  - unzip
+  - rsync
+  - rclone
+  - git
+
+python_pip_packages:
+  - pylint
+  - pylama
+  - virtualenv
+  - pytest

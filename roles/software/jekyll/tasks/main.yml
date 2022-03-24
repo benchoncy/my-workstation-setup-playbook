@@ -1,8 +1,0 @@
----
-- name: Ensure Jekyll is present
-  community.general.gem:
-    name: "{{ item }}"
-    state: present
-  loop: 
-    - jekyll
-    - bundler

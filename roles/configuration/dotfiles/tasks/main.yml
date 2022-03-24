@@ -4,6 +4,7 @@
     repo: "{{ dotfiles_repo }}"
     dest: "{{ ansible_env.HOME }}/.cfg"
     bare: yes
+    version: "{{ dotfiles_repo_version }}"
 
 - name: Checkout dotfiles
   shell: |

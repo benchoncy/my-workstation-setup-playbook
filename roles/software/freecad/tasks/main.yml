@@ -1,6 +1,0 @@
----
-- name: Ensure FreeCAD is present
-  become: yes
-  community.general.flatpak:
-    name: org.freecadweb.FreeCAD
-    state: present

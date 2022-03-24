@@ -1,3 +1,10 @@
 ---
 collections:
   - name: community.general
+
+roles:
+  - name: geerlingguy.ruby
+  - name: geerlingguy.go
+  - name: geerlingguy.ansible
+  - name: darkwizard242.onepassword
+    version: 2.0.0

@@ -1,0 +1,3 @@
+---
+- include_tasks: vscode.yml
+- include_tasks: vagrant.yml

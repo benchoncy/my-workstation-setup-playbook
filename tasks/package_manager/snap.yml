@@ -1,0 +1,21 @@
+---
+- name: Ensure snapd package is present
+  become: yes
+  package:
+    name: snapd
+    state: present
+
+- name: Get current /snap file state
+  become: yes
+  stat:
+    path: /snap
+  register: snap_folder_state
+
+- name: Ensure /snap is present
+  become: yes
+  file:
+    path: /snap
+    src: /var/lib/snapd/snap
+    force: yes
+    state: link
+  when: (not snap_folder_state.stat.exists)
