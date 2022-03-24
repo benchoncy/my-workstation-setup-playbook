@@ -1,3 +1,11 @@
 ---
-- include_tasks: firefox.yml
-- include_tasks: chromium.yml
+- name: Install Firefox
+  import_tasks: firefox.yml
+
+- name: Install Chromium
+  import_tasks: chromium.yml
+
+- name: Install 1password
+  become: yes
+  import_role:
+    name: darkwizard242.onepassword

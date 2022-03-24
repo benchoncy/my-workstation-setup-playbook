@@ -14,16 +14,6 @@
     - name: Run distro specific pre-tasks
       include_tasks: "tasks/setup_pre_tasks/{{ ansible_distribution | lower }}.yml"
 
-  roles:
-    - role: geerlingguy.ruby
-      become: yes
-    - role: geerlingguy.go
-      become: yes
-    - role: darkwizard242.onepassword
-      become: yes
-    - role: geerlingguy.ansible
-      become: yes
-
   tasks:
     - name: Ensure common terminal tools are present
       become: yes
@@ -38,7 +28,7 @@
       import_tasks: tasks/gen/main.yml
 
     - name: Install programming languages
-      include_tasks: tasks/lang/main.yml
+      import_tasks: tasks/lang/main.yml
 
     - name: Install dev tools
-      include_tasks: tasks/dev_tools/main.yml
+      import_tasks: tasks/dev_tools/main.yml

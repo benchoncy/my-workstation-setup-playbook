@@ -1,5 +1,5 @@
 ---
-- name: Ensure VScode editor is present
+- name: Ensure VSCode is present
   become: yes
   community.general.snap:
     name: code

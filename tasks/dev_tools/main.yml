@@ -1,3 +1,11 @@
 ---
-- include_tasks: vscode.yml
-- include_tasks: vagrant.yml
+- name: Install VSCode
+  import_tasks: vscode.yml
+
+- name: Install Vagrant
+  import_tasks: vagrant.yml
+
+- name: Install Ansible
+  become: yes
+  import_role:
+    name: geerlingguy.ansible

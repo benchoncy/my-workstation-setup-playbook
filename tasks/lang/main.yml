@@ -1,2 +1,13 @@
 ---
-- include_tasks: python.yml
+- name: Install Python
+  import_tasks: python.yml
+
+# - name: Install Ruby
+#   become: yes
+#   import_role:
+#     name: geerlingguy.ruby
+
+- name: Install Go
+  become: yes
+  import_role:
+    name: geerlingguy.go
