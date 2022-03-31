@@ -1,10 +1,10 @@
 ---
-- name: Ensure multiverse repositories are present
+- name: Ensure multiverse repositories are present.
   apt_repository:
     repo: deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release | lower }} multiverse
     state: present
 
-- name: Ensure arch file exists
+- name: Ensure arch file exists.
   become: yes
   file:
     path: /var/lib/dpkg/arch
@@ -13,7 +13,7 @@
     modification_time: preserve
     access_time: preserve
 
-- name: Ensure minimum multi-architecture
+- name: Ensure minimum multi-architecture.
   become: yes
   lineinfile:
     path: /var/lib/dpkg/arch
@@ -23,7 +23,7 @@
     - amd64
     - i386
 
-- name: Update apt cache
+- name: Update apt cache.
   become: yes
   apt:
     update_cache: yes

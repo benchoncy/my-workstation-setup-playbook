@@ -1,6 +1,0 @@
----
-- name: Ensure Vagrant is present
-  become: yes
-  package:
-    name: vagrant
-    state: present

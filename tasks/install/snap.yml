@@ -1,17 +1,17 @@
 ---
-- name: Ensure snapd package is present
+- name: Ensure snapd package is present.
   become: yes
   package:
     name: snapd
     state: present
 
-- name: Get current /snap file state
+- name: Get current /snap file state.
   become: yes
   stat:
     path: /snap
   register: snap_folder_state
 
-- name: Ensure /snap is present
+- name: Ensure /snap is present.
   become: yes
   file:
     path: /snap

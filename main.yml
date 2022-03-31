@@ -3,32 +3,51 @@
   gather_facts: yes
 
   vars_files:
-    - vars/default.config.yml
+    - default.config.yml
 
   pre_tasks:
-    - name: Include playbook configuration
+    - name: Include playbook configuration.
       include_vars: "{{ item }}"
       with_fileglob:
         - "{{ playbook_dir }}/config.yml"
+      tags: ['always']
 
-    - name: Run distro specific pre-tasks
-      include_tasks: "tasks/setup_pre_tasks/{{ ansible_distribution | lower }}.yml"
+    - name: Run distro specific pre-tasks.
+      include_tasks: "tasks/setup_pre_tasks/{{ ansible_distribution }}.yml"
+      tags: ['always']
+
+  roles:
+    - role: geerlingguy.ruby
+      become: yes
+    - role: geerlingguy.go
+      become: yes
+    - role: gantsign.minikube
+      become: yes
+    - role: geerlingguy.ansible
+      become: yes
+    - role: geerlingguy.docker
+      become: yes
+      vars:
+        docker_users:
+          - "{{ ansible_user_id }}"
+    - role: andrewrothstein.terraform
+    - role: darkwizard242.onepassword
 
   tasks:
-    - name: Ensure common terminal tools are present
+    - name: Install packages.
       become: yes
-      package:
-        name: "{{ common_term_tools }}"
-        state: present
+      block:
+        - import_tasks: tasks/install/flatpak.yml
+        - import_tasks: tasks/install/snap.yml
+        - import_tasks: tasks/install/packages.yml
+      when: install_packages
+      tags: ['packages']
 
-    - name: Install package managers
-      import_tasks: tasks/package_manager/main.yml
+    - import_tasks: tasks/configure/terminal.yml
+      become: yes
+      when: configure_terminal
+      tags: ['terminal']
 
-    - name: Install general use software (browsers, office, etc)
-      import_tasks: tasks/gen/main.yml
-
-    - name: Install programming languages
-      import_tasks: tasks/lang/main.yml
-
-    - name: Install dev tools
-      import_tasks: tasks/dev_tools/main.yml
+    - import_tasks: tasks/configure/dotfiles.yml
+      when: configure_dotfiles
+      tags: ['dotfiles']

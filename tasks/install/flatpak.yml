@@ -1,11 +1,11 @@
 ---
-- name: Ensure flatpak package is present
+- name: Ensure flatpak package is present.
   become: yes
   package:
     name: flatpak
     state: present
 
-- name: Ensure flathub repositories are included
+- name: Ensure flathub repositories are included.
   become: yes
   community.general.flatpak_remote:
     name: flathub

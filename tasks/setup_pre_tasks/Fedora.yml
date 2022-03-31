@@ -1,5 +1,5 @@
 ---
-- name: Edit dnf config to increase download speed
+- name: Edit dnf config to increase download speed.
   become: yes
   lineinfile:
     path: /etc/dnf/dnf.conf
@@ -11,7 +11,7 @@
     - key: "fastestmirror"
       value: "True"
 
-- name: Enable rpmfussion repositories
+- name: Enable rpmfussion repositories.
   become: yes
   dnf:
     name: "{{ item }}"

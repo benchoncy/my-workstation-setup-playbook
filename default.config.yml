@@ -1,0 +1,52 @@
+---
+dotfiles_repo: https://github.com/benchoncy/dotfiles.git
+
+install_packages: yes
+configure_terminal: yes
+configure_dotfiles: yes
+
+system_packages:
+  - vim
+  - wget
+  - curl
+  - tar
+  - unzip
+  - rsync
+  - rclone
+  - git
+  - zsh
+  - python3
+  - python3-pip
+  - vagrant
+  - hugo
+  - name: firefox
+    state: absent
+
+flatpak_packages:
+  - org.chromium.Chromium
+  - org.mozilla.firefox
+  - com.ultimaker.cura
+  - org.freecadweb.FreeCAD
+  - com.spotify.Client
+  - com.discordapp.Discord
+
+snap_packages:
+  - name: chezmoi
+    classic: yes
+  - name: code
+    classic: yes
+  - name: kubectl
+    classic: yes
+  - name: firefox
+    state: absent
+
+pip_packages:
+  - pylint
+  - pylama
+  - flake8
+  - virtualenv
+  - pytest
+
+gem_packages: []
+
+npm_packages: []

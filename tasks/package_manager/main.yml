@@ -1,6 +1,0 @@
----
-- name: Install Flatpak
-  import_tasks: flatpak.yml
-
-- name: Install Snap
-  import_tasks: snap.yml
