@@ -1,5 +1,0 @@
----
-- name: Init dotfiles.
-  command: chezmoi init --apply {{ dotfiles_repo }}
-  args:
-    creates: "$HOME/.local/share/chezmoi"

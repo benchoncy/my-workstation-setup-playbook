@@ -1,11 +1,3 @@
 ---
 collections:
   - name: community.general
-
-roles:
-  - name: geerlingguy.ruby
-  - name: geerlingguy.go
-  - name: geerlingguy.ansible
-  - name: geerlingguy.docker
-  - name: andrewrothstein.terraform
-  - name: gantsign.minikube

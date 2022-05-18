@@ -1,0 +1,32 @@
+---
+- name: Ensure state of system packages
+  become: yes
+  package:
+    name: "{{ system_packages[item] }}"
+    state: "{{ item }}"
+  loop: "{{ system_packages.keys() }}"
+  tags: ['system']
+
+- name: Ensure state of Flatpak packages
+  become: yes
+  community.general.flatpak:
+    name: "{{ flatpak_packages[item] }}"
+    state: "{{ item }}"
+  loop: "{{ flatpak_packages.keys() }}"
+  tags: ['flatpak']
+
+- name: Ensure state of Homebrew formulas
+  community.general.homebrew:
+    name: "{{ brew_formulas[item] }}"
+    state: "{{ item }}"
+    path: /home/linuxbrew/.linuxbrew/bin
+  loop: "{{ brew_formulas.keys() }}"
+  tags: ['brew']
+
+- name: Ensure state of Homebrew casks
+  community.general.homebrew_cask:
+    name: "{{ brew_casks[item] }}"
+    state: "{{ item }}"
+    path: /home/linuxbrew/.linuxbrew/bin
+  loop: "{{ brew_casks.keys() }}"
+  tags: ['brew']

@@ -3,51 +3,46 @@
   gather_facts: yes
 
   vars_files:
-    - default.config.yml
+    - vars/default.config.yml
 
   pre_tasks:
-    - name: Include playbook configuration.
+    - name: Include playbook configuration
       include_vars: "{{ item }}"
       with_fileglob:
         - "{{ playbook_dir }}/config.yml"
       tags: ['always']
 
-    - name: Run distro specific pre-tasks.
-      include_tasks: "tasks/setup_pre_tasks/{{ ansible_distribution }}.yml"
+    - name: Run distro specific pre-tasks
+      include_tasks:
+        file: "tasks/setup_pre_tasks/{{ ansible_distribution }}.yml"
+        apply:
+          tags: ['always']
       tags: ['always']
 
-  roles:
-    - role: geerlingguy.ruby
-      become: yes
-    - role: geerlingguy.go
-      become: yes
-    - role: gantsign.minikube
-      become: yes
-    - role: geerlingguy.ansible
-      become: yes
-    - role: geerlingguy.docker
-      become: yes
-      vars:
-        docker_users:
-          - "{{ ansible_user_id }}"
-    - role: andrewrothstein.terraform
-    - role: darkwizard242.onepassword
-
   tasks:
-    - name: Install packages.
-      become: yes
+    - name: Install packages
       block:
-        - import_tasks: tasks/install/flatpak.yml
-        - import_tasks: tasks/install/snap.yml
-        - import_tasks: tasks/install/packages.yml
-      when: install_packages
+        - import_tasks: tasks/flatpak.yml
+          tags: ['flatpak']
+        - import_tasks: tasks/brew.yml
+          tags: ['brew']
+        - import_tasks: tasks/packages.yml
       tags: ['packages']
 
-    - import_tasks: tasks/configure/terminal.yml
+    - name: Install 1password
       become: yes
-      when: configure_terminal
+      import_role:
+        name: 1password
+      tags: ['1password', 'packages']
+
+    - name: Set zsh as default shell for user
+      become: yes
+      user:
+        name: "{{ ansible_user_id }}"
+        shell: "/usr/bin/zsh"
+        state: present
       tags: ['terminal']
 
-    - import_tasks: tasks/configure/dotfiles.yml
-      when: configure_dotfiles
+    - name: Init dotfiles
+      import_tasks: tasks/init_dotfiles.yml
       tags: ['dotfiles']

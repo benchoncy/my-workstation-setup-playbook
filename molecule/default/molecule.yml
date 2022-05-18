@@ -2,12 +2,15 @@
 dependency:
   name: galaxy
 driver:
-  name: vagrant
+  name: docker
 platforms:
   - name: instance
-    box: generic/${MOLECULE_DISTRO:-fedora35}
-    memory: 512
-    cpus: 1
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-fedora36}-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
 provisioner:
   name: ansible
 verifier:

@@ -1,0 +1,14 @@
+---
+- name: Run chezmoi init
+  command:
+    cmd: chezmoi init --apply https://{{ dotfiles_repo }}
+    creates: $HOME/.local/share/chezmoi/
+  environment:
+    PATH: /home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}
+
+- name: Change git remote to SSH
+  git_config:
+    repo: $HOME/.local/share/chezmoi/
+    scope: local
+    name: remote.origin.url
+    value: git@{{ dotfiles_repo }}

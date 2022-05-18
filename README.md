@@ -3,15 +3,10 @@
 The goal of this playbook is to enable a quick, repeatable and testable method of configuring my Linux desktop computer.
 
 This playbook aims to:
-- Support both Ubuntu and Fedora machines
-- Install:
-	- software I use day-to-day
-	- programming languages/interpreters/compilers
-	- dev tools
-	- package managers
-- Configure:
-	- terminal
-	- command-line tools
+- Support Fedora machines
+- Install and configure package managers
+- Install desired packages
+- Include my dotfiles
 - Automate as many other first set up steps as possible
 
 ## Running the playbook

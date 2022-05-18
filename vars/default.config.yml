@@ -1,0 +1,30 @@
+---
+dotfiles_repo: github.com/benchoncy/dotfiles.git
+
+system_packages:
+  present:
+    - vim
+    - wget
+    - curl
+    - tar
+    - unzip
+    - rsync
+    - rclone
+    - git
+    - zsh
+    - python3
+    - python3-pip
+  absent:
+    - firefox
+
+flatpak_packages:
+  present:
+    - org.chromium.Chromium
+    - org.mozilla.firefox
+    - com.visualstudio.code
+
+brew_formulas:
+  present:
+    - chezmoi
+
+brew_casks: {}
