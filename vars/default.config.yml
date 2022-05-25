@@ -39,6 +39,11 @@ brew_formulas:
     - kubectl
     - hugo
     - openjdk
+    - terraform
+    - packer
+    - awscli
+    - azure-cli
+    - doctl
 
 brew_casks:
   present:

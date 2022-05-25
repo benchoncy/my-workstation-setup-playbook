@@ -7,7 +7,7 @@ This playbook aims to:
 - Install and configure package managers
 - Install desired packages
 - Include my dotfiles
-- Automate as many other first set up steps as possible
+- Automate as many other first setup steps as possible
 
 ## Running the playbook
 
