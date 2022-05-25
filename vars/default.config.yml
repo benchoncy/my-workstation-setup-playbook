@@ -12,19 +12,45 @@ system_packages:
     - rclone
     - git
     - zsh
+    - '@development'
     - python3
     - python3-pip
+    - golang
   absent:
     - firefox
 
 flatpak_packages:
   present:
-    - org.chromium.Chromium
+    - com.google.Chrome
     - org.mozilla.firefox
     - com.visualstudio.code
+    - md.obsidian.Obsidian
+    - com.slack.Slack
+    - com.discordapp.Discord
+    - org.videolan.VLC
+    - org.freecadweb.FreeCAD
+    - com.ultimaker.cura
 
 brew_formulas:
   present:
     - chezmoi
+    - pyenv
+    - minikube
+    - kubectl
+    - hugo
+    - openjdk
 
-brew_casks: {}
+brew_casks:
+  present:
+    - vagrant
+    - docker
+
+pip_packages:
+  present:
+    - pipenv
+    - ansible
+    - ansible-core
+    - ansible-lint
+    - molecule
+    - molecule[docker]
+    - molecule-vagrant
