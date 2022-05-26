@@ -11,3 +11,11 @@
     name: flathub
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
     state: present
+
+- name: Ensure flathub repositories is unfiltered
+  become: yes
+  lineinfile:
+    path: /var/lib/flatpak/repo/config
+    state: absent
+    insertafter: '[remote "flathub"]'
+    regexp: '^xa.filter=.*flathub'
