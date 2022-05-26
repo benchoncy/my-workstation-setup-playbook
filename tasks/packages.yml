@@ -33,7 +33,7 @@
 
 - name: Ensure state of Pip packages
   pip:
-    name: "{{ brew_casks[item] }}"
+    name: "{{ pip_packages[item] }}"
     state: "{{ item }}"
-  loop: "{{ brew_casks.keys() }}"
+  loop: "{{ pip_packages.keys() }}"
   tags: ['pip']
