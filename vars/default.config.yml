@@ -12,10 +12,11 @@ system_packages:
     - rclone
     - git
     - zsh
-    - '@development'
+    - '@Development Tools'
     - python3
     - python3-pip
     - golang
+    - vagrant
   absent:
     - firefox
 
@@ -37,18 +38,16 @@ brew_formulas:
     - pyenv
     - minikube
     - kubectl
-    - hugo
-    - openjdk
+    - docker
     - terraform
     - packer
+    - hugo
+    - openjdk
     - awscli
     - azure-cli
     - doctl
 
-brew_casks:
-  present:
-    - vagrant
-    - docker
+brew_casks: {}
 
 pip_packages:
   present:
