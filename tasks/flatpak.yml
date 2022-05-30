@@ -12,7 +12,7 @@
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
     state: present
 
-- name: Ensure flathub repositories is unfiltered
+- name: Ensure flathub repositories are unfiltered
   become: yes
   lineinfile:
     path: /var/lib/flatpak/repo/config
