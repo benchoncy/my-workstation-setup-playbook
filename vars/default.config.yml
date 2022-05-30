@@ -19,6 +19,7 @@ system_packages:
     - java-latest-openjdk
     - vagrant
     - hugo
+    - podman
   absent:
     - firefox
 
@@ -40,7 +41,6 @@ brew_formulas:
     - pyenv
     - minikube
     - kubectl
-    - docker
     - terraform
     - tfenv
     - packer
