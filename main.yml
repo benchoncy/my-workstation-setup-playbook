@@ -46,3 +46,8 @@
     - name: Init dotfiles
       import_tasks: tasks/init_dotfiles.yml
       tags: ['dotfiles']
+
+    - name: Configure Gnome DE
+      import_role:
+        name: gnome
+      tags: ['gnome', 'de']
