@@ -16,7 +16,9 @@ system_packages:
     - python3
     - python3-pip
     - golang
+    - java-latest-openjdk
     - vagrant
+    - hugo
   absent:
     - firefox
 
@@ -40,9 +42,8 @@ brew_formulas:
     - kubectl
     - docker
     - terraform
+    - tfenv
     - packer
-    - hugo
-    - openjdk
     - awscli
     - azure-cli
     - doctl
