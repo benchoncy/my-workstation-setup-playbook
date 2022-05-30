@@ -23,14 +23,6 @@
   loop: "{{ brew_formulas.keys() }}"
   tags: ['brew']
 
-- name: Ensure state of Homebrew casks
-  community.general.homebrew_cask:
-    name: "{{ brew_casks[item] }}"
-    state: "{{ item }}"
-    path: /home/linuxbrew/.linuxbrew/bin
-  loop: "{{ brew_casks.keys() }}"
-  tags: ['brew']
-
 - name: Ensure state of Pip packages
   pip:
     name: "{{ pip_packages[item] }}"

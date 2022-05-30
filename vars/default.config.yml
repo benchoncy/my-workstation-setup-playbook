@@ -48,8 +48,6 @@ brew_formulas:
     - azure-cli
     - doctl
 
-brew_casks: {}
-
 pip_packages:
   present:
     - pipenv
