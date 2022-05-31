@@ -3,7 +3,7 @@ dotfiles_repo: github.com/benchoncy/dotfiles.git
 
 system_package_repos:
   - name: visual-studio-code
-    description: Microsoft offical VScode repository
+    description: Microsoft VScode
     baseurl: https://packages.microsoft.com/yumrepos/vscode
     enabled: yes
     gpgcheck: yes
@@ -15,6 +15,13 @@ system_package_repos:
     enabled: yes
     gpgcheck: yes
     gpgkey: https://rpm.releases.hashicorp.com/gpg
+
+  - name: google-chrome
+    description: Google Chrome
+    baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://dl.google.com/linux/linux_signing_key.pub
 
 system_packages:
   present:
@@ -38,12 +45,12 @@ system_packages:
     - hugo
     - podman
     - code
+    - google-chrome-stable
   absent:
     - firefox
 
 flatpak_packages:
   present:
-    - com.google.Chrome
     - md.obsidian.Obsidian
     - com.slack.Slack
     - com.discordapp.Discord
