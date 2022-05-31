@@ -9,7 +9,7 @@
   lineinfile:
     name: /var/lib/flatpak/repo/config
     line: "xa.title=Fedora Flathub Selection"
-    state: present
+    state: absent
   check_mode: yes
   register: flatpak_conf
 
@@ -18,7 +18,7 @@
   flatpak_remote:
     name: flathub
     state: absent
-  when: not flatpak_conf.changed
+  when: flatpak_conf.changed
 
 - name: Ensure Flathub remote is present
   become: yes
@@ -26,13 +26,3 @@
     name: flathub
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
     state: present
-
-- name: Ensure flathub repositories are enabled
-  become: yes
-  ini_file:
-    path: /var/lib/flatpak/repo/config
-    section: 'remote "flathub"'
-    option: xa.disabled
-    value: 'false'
-    state: present
-    backup: yes

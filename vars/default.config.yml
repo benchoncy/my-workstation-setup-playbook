@@ -9,6 +9,13 @@ system_package_repos:
     gpgcheck: yes
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
 
+  - name: hashicorp
+    description: Hashicorp Stable
+    baseurl: https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://rpm.releases.hashicorp.com/gpg
+
 system_packages:
   present:
     - vim
@@ -26,6 +33,8 @@ system_packages:
     - golang
     - java-latest-openjdk
     - vagrant
+    - terraform
+    - packer
     - hugo
     - podman
     - code
@@ -48,8 +57,6 @@ brew_formulas:
     - pyenv
     - minikube
     - kubectl
-    - terraform
-    - packer
     - awscli
 
 pip_packages:
