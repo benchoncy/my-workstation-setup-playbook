@@ -82,7 +82,7 @@ gnome:
   background: "'file:///usr/share/backgrounds/fedora-workstation/calm.jpg'"
   background_dark: "'file:///usr/share/backgrounds/fedora-workstation/calm.jpg'"
   favorite_apps:
-    - com.google.Chrome.desktop
+    - google-chrome.desktop
     - org.gnome.Terminal.desktop
     - org.gnome.Nautilus.desktop
     - code.desktop
