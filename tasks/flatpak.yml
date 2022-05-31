@@ -5,19 +5,17 @@
     name: flatpak
     state: present
 
-- name: Check Flathub configuration
+- name: Check flathub remote filter
   lineinfile:
     name: /var/lib/flatpak/repo/config
-    line: "xa.title=Fedora Flathub Selection"
+    regexp: "^xa.filter=.*flathub.filter"
     state: absent
   check_mode: yes
   register: flatpak_conf
 
-- name: Remove Fedora filtered Flathub remote
+- name: Remove filtered flathub remote
   become: yes
-  flatpak_remote:
-    name: flathub
-    state: absent
+  command: flatpak remote-delete flathub
   when: flatpak_conf.changed
 
 - name: Ensure Flathub remote is present
