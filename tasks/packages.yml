@@ -1,4 +1,15 @@
 ---
+- name: Ensure state of system package repositories
+  become: yes
+  yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    baseurl: "{{ item.baseurl }}"
+    enabled: "{{ item.enabled }}"
+    gpgcheck: "{{ item.gpgcheck }}"
+    gpgkey: "{{ item.gpgkey }}"
+  loop: "{{ system_package_repos }}"
+
 - name: Ensure state of system packages
   become: yes
   package:

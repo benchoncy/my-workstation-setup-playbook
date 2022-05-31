@@ -1,6 +1,14 @@
 ---
 dotfiles_repo: github.com/benchoncy/dotfiles.git
 
+system_package_repos:
+  - name: visual-studio-code
+    description: Microsoft offical VScode repository
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+
 system_packages:
   present:
     - vim
@@ -20,14 +28,13 @@ system_packages:
     - vagrant
     - hugo
     - podman
+    - code
   absent:
     - firefox
 
 flatpak_packages:
   present:
     - com.google.Chrome
-    - org.mozilla.firefox
-    - com.visualstudio.code
     - md.obsidian.Obsidian
     - com.slack.Slack
     - com.discordapp.Discord
@@ -42,11 +49,8 @@ brew_formulas:
     - minikube
     - kubectl
     - terraform
-    - tfenv
     - packer
     - awscli
-    - azure-cli
-    - doctl
 
 pip_packages:
   present:
@@ -59,11 +63,13 @@ pip_packages:
     - molecule-vagrant
 
 gnome:
-  theme: Adwaita-dark
-  background: file:///usr/share/backgrounds/fedora-workstation/calm.jpg
+  theme: "'Adwaita-dark'"
+  color_scheme: "'prefer-dark'"
+  background: "'file:///usr/share/backgrounds/fedora-workstation/calm.jpg'"
+  background_dark: "'file:///usr/share/backgrounds/fedora-workstation/calm_dark.jpg'"
   favorite_apps:
-    - org.mozilla.firefox.desktop
+    - com.google.Chrome.desktop
     - org.gnome.Terminal.desktop
     - org.gnome.Nautilus.desktop
-    - code_code.desktop
+    - code.desktop
     - md.obsidian.Obsidian.desktop

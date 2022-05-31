@@ -1,4 +1,9 @@
 ---
+- name: Install dconf requirements
+  pip:
+    name: psutil
+    state: present
+
 - name: Set dock layout in Gnome
   dconf:
     key: /org/gnome/shell/favorite-apps
@@ -11,8 +16,20 @@
     value: "{{ gnome.theme }}"
     state: present
 
-- name: Set window theme in Gnome
+- name: Set color scheme in Gnome
+  dconf:
+    key: /org/gnome/desktop/interface/color-scheme
+    value: "{{ gnome.color_scheme }}"
+    state: present
+
+- name: Set background image in Gnome
   dconf:
     key: /org/gnome/desktop/background/picture-uri
     value: "{{ gnome.background }}"
+    state: present
+
+- name: Set background image in Gnome
+  dconf:
+    key: /org/gnome/desktop/background/picture-uri-dark
+    value: "{{ gnome.background_dark }}"
     state: present

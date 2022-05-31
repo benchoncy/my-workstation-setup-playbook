@@ -5,17 +5,21 @@
     name: flatpak
     state: present
 
-- name: Ensure flathub repositories are included
-  become: yes
-  community.general.flatpak_remote:
-    name: flathub
-    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
-    state: present
-
 - name: Ensure flathub repositories are unfiltered
   become: yes
-  lineinfile:
+  ini_file:
     path: /var/lib/flatpak/repo/config
+    section: 'remote "flathub"'
+    option: xa.filtered
     state: absent
-    insertafter: '[remote "flathub"]'
-    regexp: '^xa.filter=.*flathub'
+    backup: yes
+
+- name: Ensure flathub repositories are enabled
+  become: yes
+  ini_file:
+    path: /var/lib/flatpak/repo/config
+    section: 'remote "flathub"'
+    option: xa.disabled
+    value: 'false'
+    state: present
+    backup: yes
