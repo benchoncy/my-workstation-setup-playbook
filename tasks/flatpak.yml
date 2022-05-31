@@ -15,14 +15,14 @@
 
 - name: Remove Fedora filtered Flathub remote
   become: yes
-  flatpak_repository:
+  flatpak_remote:
     name: flathub
     state: absent
   when: not flatpak_conf.changed
 
 - name: Ensure Flathub remote is present
   become: yes
-  flatpak_repository:
+  flatpak_remote:
     name: flathub
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
     state: present
