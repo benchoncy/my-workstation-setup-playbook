@@ -1,4 +1,4 @@
-# My Ansible Setup Playbook
+# My Workstation Setup Playbook
 
 The goal of this playbook is to enable a quick, repeatable and testable method of configuring my Linux desktop computer.
 

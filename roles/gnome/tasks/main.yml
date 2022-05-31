@@ -4,6 +4,18 @@
     name: psutil
     state: present
 
+- name: Install Gnome extentions
+  become: yes
+  package:
+    name: gnome-shell-extension-appindicator
+    state: present
+
+- name: Enable Gnome extentions
+  dconf:
+    key: /org/gnome/shell/enabled-extensions
+    value: ['background-logo@fedorahosted.org', 'appindicatorsupport@rgcjonas.gmail.com']
+    state: present
+
 - name: Set dock layout in Gnome
   dconf:
     key: /org/gnome/shell/favorite-apps

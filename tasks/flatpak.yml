@@ -5,14 +5,27 @@
     name: flatpak
     state: present
 
-- name: Ensure flathub repositories are unfiltered
+- name: Check Flathub configuration
+  lineinfile:
+    name: /var/lib/flatpak/repo/config
+    line: "xa.title=Fedora Flathub Selection"
+    state: present
+  check_mode: yes
+  register: flatpak_conf
+
+- name: Remove Fedora filtered Flathub remote
   become: yes
-  ini_file:
-    path: /var/lib/flatpak/repo/config
-    section: 'remote "flathub"'
-    option: xa.filtered
+  flatpak_repository:
+    name: flathub
     state: absent
-    backup: yes
+  when: not flatpak_conf.changed
+
+- name: Ensure Flathub remote is present
+  become: yes
+  flatpak_repository:
+    name: flathub
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    state: present
 
 - name: Ensure flathub repositories are enabled
   become: yes

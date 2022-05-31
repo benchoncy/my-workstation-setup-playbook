@@ -66,7 +66,7 @@ gnome:
   theme: "'Adwaita-dark'"
   color_scheme: "'prefer-dark'"
   background: "'file:///usr/share/backgrounds/fedora-workstation/calm.jpg'"
-  background_dark: "'file:///usr/share/backgrounds/fedora-workstation/calm_dark.jpg'"
+  background_dark: "'file:///usr/share/backgrounds/fedora-workstation/calm.jpg'"
   favorite_apps:
     - com.google.Chrome.desktop
     - org.gnome.Terminal.desktop
