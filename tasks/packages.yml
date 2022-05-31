@@ -12,10 +12,18 @@
 
 - name: Ensure state of system packages
   become: yes
-  package:
+  dnf:
     name: "{{ system_packages[item] }}"
     state: "{{ item }}"
   loop: "{{ system_packages.keys() }}"
+  tags: ['system']
+
+- name: Ensure state of local system packages
+  become: yes
+  dnf:
+    name: "{{ system_packages_local }}"
+    state: present
+    disable_gpg_check: yes
   tags: ['system']
 
 - name: Ensure state of Flatpak packages
@@ -25,14 +33,6 @@
     state: "{{ item }}"
   loop: "{{ flatpak_packages.keys() }}"
   tags: ['flatpak']
-
-- name: Ensure state of Homebrew formulas
-  community.general.homebrew:
-    name: "{{ brew_formulas[item] }}"
-    state: "{{ item }}"
-    path: /home/linuxbrew/.linuxbrew/bin
-  loop: "{{ brew_formulas.keys() }}"
-  tags: ['brew']
 
 - name: Ensure state of Pip packages
   pip:

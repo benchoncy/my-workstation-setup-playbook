@@ -24,8 +24,6 @@
       block:
         - import_tasks: tasks/flatpak.yml
           tags: ['flatpak']
-        - import_tasks: tasks/brew.yml
-          tags: ['brew']
         - import_tasks: tasks/packages.yml
       tags: ['packages']
 

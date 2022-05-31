@@ -3,8 +3,6 @@
   command:
     cmd: chezmoi init --apply https://{{ dotfiles_repo }}
     creates: $HOME/.local/share/chezmoi/
-  environment:
-    PATH: /home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}
 
 - name: Change git remote to SSH
   git_config:
