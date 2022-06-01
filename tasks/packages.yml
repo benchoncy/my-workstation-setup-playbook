@@ -10,20 +10,20 @@
     gpgkey: "{{ item.gpgkey }}"
   loop: "{{ system_package_repos }}"
 
-- name: Ensure state of system packages
-  become: yes
-  dnf:
-    name: "{{ system_packages[item] }}"
-    state: "{{ item }}"
-  loop: "{{ system_packages.keys() }}"
-  tags: ['system']
-
 - name: Ensure state of local system packages
   become: yes
   dnf:
     name: "{{ system_packages_local }}"
     state: present
     disable_gpg_check: yes
+  tags: ['system']
+
+- name: Ensure state of system packages
+  become: yes
+  dnf:
+    name: "{{ system_packages[item] }}"
+    state: "{{ item }}"
+  loop: "{{ system_packages.keys() }}"
   tags: ['system']
 
 - name: Ensure state of Flatpak packages
