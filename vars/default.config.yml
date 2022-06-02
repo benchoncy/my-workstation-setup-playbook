@@ -1,7 +1,7 @@
 ---
 dotfiles_repo: github.com/benchoncy/dotfiles.git
 
-enable_free_rpm_fusion: no
+enable_free_rpm_fusion: yes
 enable_nonfree_rpm_fusion: no
 
 system_package_repos:

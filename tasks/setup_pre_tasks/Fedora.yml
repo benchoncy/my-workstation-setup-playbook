@@ -17,6 +17,7 @@
     name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
     state: present
     disable_gpg_check: yes
+  tags: ['rpm_fusion']
   when: enable_free_rpm_fusion
 
 - name: Enable the Non-Free RPM Fusion repository
@@ -25,4 +26,33 @@
     name: "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
     state: present
     disable_gpg_check: yes
+  tags: ['rpm_fusion']
   when: enable_nonfree_rpm_fusion
+
+- name: Install media plugins from RPM fusion (free)
+  block:
+    - name: Install gstreamer plugins
+      dnf:
+        name: gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav
+        state: present
+        exclude: gstreamer1-plugins-bad-free-devel
+
+    - name: Install lame plugins
+      dnf:
+        name: lame\*
+        state: present
+        exclude: lame-devel
+
+    - name: Upgrade Multimedia group with optional packages
+      command:
+        cmd: dnf group upgrade --with-optional Multimedia
+      changed_when: false
+  tags: ['multimedia-plugins', 'rpm_fusion']
+  when: enable_free_rpm_fusion
+
+- name: Enable RPM Fusion Appstream data
+  dnf:
+    name: '@core'
+    state: latest
+  tags: ['rpm_fusion']
+  when: enable_free_rpm_fusion or enable_nonfree_rpm_fusion
