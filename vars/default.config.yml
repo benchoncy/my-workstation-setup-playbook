@@ -73,7 +73,8 @@ pip_packages:
     - ansible-core
     - ansible-lint
     - molecule
-    - molecule[docker]
+    - molecule-containers
+    - molecule-podman
     - molecule-vagrant
 
 gnome:

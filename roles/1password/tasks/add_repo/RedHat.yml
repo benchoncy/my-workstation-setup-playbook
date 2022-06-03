@@ -5,7 +5,7 @@
     key: https://downloads.1password.com/linux/keys/1password.asc
     state: present
 
-- name: Add 1passpord repo
+- name: Add 1password repo
   become: yes
   yum_repository:
     name: 1password
