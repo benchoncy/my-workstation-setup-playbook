@@ -69,7 +69,6 @@ system_packages:
     - podman
     - code
     - awscli
-    - docli
     - kubectl
 
 flatpak_packages:
@@ -98,6 +97,8 @@ gnome:
   color_scheme: "'prefer-dark'"
   background: "'file:///usr/share/backgrounds/fedora-workstation/calm.jpg'"
   background_dark: "'file:///usr/share/backgrounds/fedora-workstation/calm.jpg'"
+  avatar:
+    src: https://avatars.githubusercontent.com/u/25982949
   favorite_apps:
     - firefox.desktop
     - org.gnome.Terminal.desktop

@@ -45,3 +45,11 @@
     key: /org/gnome/desktop/background/picture-uri-dark
     value: "{{ gnome.background_dark }}"
     state: present
+
+- name: Set profile image
+  become: yes
+  get_url:
+    url: "{{ gnome.avatar.src }}"
+    dest: "/var/lib/AccountsService/icons/{{ ansible_user_id }}"
+    force: yes
+    mode: "0644"
