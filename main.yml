@@ -27,12 +27,6 @@
         - import_tasks: tasks/packages.yml
       tags: ['packages']
 
-    - name: Install 1password
-      become: yes
-      import_role:
-        name: 1password
-      tags: ['1password', 'packages']
-
     - name: Set zsh as default shell for user
       become: yes
       user:
@@ -46,6 +40,5 @@
       tags: ['dotfiles']
 
     - name: Configure Gnome DE
-      import_role:
-        name: gnome
+      import_tasks: tasks/gnome.yml
       tags: ['gnome', 'de']

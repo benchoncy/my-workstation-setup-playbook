@@ -5,6 +5,13 @@ enable_free_rpm_fusion: yes
 enable_nonfree_rpm_fusion: no
 
 system_package_repos:
+  - name: 1password
+    description: 1Password Stable Channel
+    baseurl: https://downloads.1password.com/linux/rpm/stable/$basearch
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://downloads.1password.com/linux/keys/1password.asc
+
   - name: visual-studio-code
     description: Microsoft VScode
     baseurl: https://packages.microsoft.com/yumrepos/vscode
@@ -32,6 +39,10 @@ system_packages_local:
 
 system_packages:
   present:
+    # Password manager
+    - 1password
+    - 1password-cli
+    # General cli tools
     - vim
     - wget
     - curl
@@ -41,9 +52,11 @@ system_packages:
     - rclone
     - git
     - zsh
-    - '@Development Tools'
+    # Browsers
     - firefox
     - chromium
+    # Dev tools
+    - '@Development Tools'
     - python3
     - python3-pip
     - pipenv
@@ -62,9 +75,11 @@ system_packages:
 flatpak_packages:
   present:
     - md.obsidian.Obsidian
+    - org.videolan.VLC
+    # Communication
     - com.slack.Slack
     - com.discordapp.Discord
-    - org.videolan.VLC
+    # 3d printing
     - org.freecadweb.FreeCAD
     - com.ultimaker.cura
 
@@ -89,3 +104,4 @@ gnome:
     - org.gnome.Nautilus.desktop
     - code.desktop
     - md.obsidian.Obsidian.desktop
+    - 1password.desktop
