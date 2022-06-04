@@ -13,10 +13,10 @@ This playbook aims to:
 
 Run playbook locally with:
 ```none
-ansible-playbook --connection=local --inventory 127.0.0.1, --ask-become-pass main.yml
+ansible-playbook -c local -i 127.0.0.1, -K main.yml
 ```
 
 Full bootstrap and run locally:
 ```none
-wget -q -O - https://raw.githubusercontent.com/benchoncy/my-workstation-setup-playbook/main/setup.sh | sudo /usr/bin/env bash
+/bin/bash -c "$(curl -fsS https://raw.githubusercontent.com/benchoncy/my-workstation-setup-playbook/main/setup.sh)"
 ```

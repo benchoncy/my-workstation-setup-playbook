@@ -1,9 +1,20 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 WORK_DIR=/tmp/setup
 
-read -s -p "Enter sudo password for $USER: " $password
-echo ""
+sudo_correct=1
+until [ $sudo_correct -eq 0 ]
+do
+  read -s -p "Enter sudo password for $USER: " password
+  echo ""
+
+  echo $password | sudo -S -k whoami &>/dev/null
+  sudo_correct=$?
+
+  if [ $sudo_correct -ne 0 ]; then
+    echo "Sudo password incorrect, please try again."
+  fi
+done
 
 echo "Installing pre-requisites..."
 echo $password | sudo -S -k dnf install -yq python3 python3-pip git 2>/dev/null
