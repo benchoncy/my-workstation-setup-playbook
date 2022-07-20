@@ -1,7 +1,7 @@
 ---
 - name: Run chezmoi init
   command:
-    cmd: chezmoi init --apply https://{{ dotfiles_repo }}
+    cmd: chezmoi init --apply https://{{ dotfiles.host }}/{{ dotfiles.repo }}.git
     creates: $HOME/.local/share/chezmoi/
 
 - name: Change git remote to SSH
@@ -9,4 +9,4 @@
     repo: $HOME/.local/share/chezmoi/
     scope: local
     name: remote.origin.url
-    value: git@{{ dotfiles_repo }}
+    value: git@{{ dotfiles.host }}:{{ dotfiles.repo }}.git

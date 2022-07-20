@@ -1,5 +1,7 @@
 ---
-dotfiles_repo: github.com/benchoncy/dotfiles.git
+dotfiles:
+  repo: benchoncy/dotfiles
+  host: github.com
 
 enable_free_rpm_fusion: yes
 enable_nonfree_rpm_fusion: no
