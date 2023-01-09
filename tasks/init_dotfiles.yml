@@ -1,7 +1,10 @@
 ---
 - name: Run chezmoi init
-  command:
-    cmd: chezmoi init --apply https://{{ dotfiles.host }}/{{ dotfiles.repo }}.git
+  shell:
+    cmd: |
+      chezmoi init \
+      --apply https://{{ dotfiles.host }}/{{ dotfiles.repo }}.git \
+      --promptString 'What is your email address'={{ email }}
     creates: $HOME/.local/share/chezmoi/
 
 - name: Change git remote to SSH

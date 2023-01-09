@@ -1,4 +1,6 @@
 ---
+email: ben@benstuart.ie
+
 dotfiles:
   repo: benchoncy/dotfiles
   host: github.com
@@ -36,8 +38,9 @@ system_package_repos:
     gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 
 system_packages_local:
-  - "https://github.com/twpayne/chezmoi/releases/download/v2.17.1/chezmoi-2.17.1-x86_64.rpm"  # chezmoi
-  - "https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm"  # minikube
+  - "https://github.com/twpayne/chezmoi/releases/download/v2.29.1/chezmoi-2.29.1-x86_64.rpm"  # Chezmoi
+  - "https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm"  # Minikube
+  - "https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm"  # Google Chrome
 
 system_packages:
   present:
@@ -56,17 +59,14 @@ system_packages:
     - zsh
     # Browsers
     - firefox
-    - chromium
     # Dev tools
     - '@Development Tools'
     - python3
     - python3-pip
-    - pipenv
     - golang
     - java-latest-openjdk
     - vagrant
     - terraform
-    - packer
     - hugo
     - podman
     - code
@@ -76,10 +76,8 @@ system_packages:
 flatpak_packages:
   present:
     - md.obsidian.Obsidian
+    - org.zotero.Zotero
     - org.videolan.VLC
-    # Communication
-    - com.slack.Slack
-    - com.discordapp.Discord
     # 3d printing
     - org.freecadweb.FreeCAD
     - com.ultimaker.cura
@@ -93,6 +91,9 @@ pip_packages:
     - molecule-containers
     - molecule-podman
     - molecule-vagrant
+    - pytest
+    - poetry
+    - build
 
 gnome:
   theme: "'Adwaita-dark'"
@@ -102,9 +103,10 @@ gnome:
   avatar:
     src: https://avatars.githubusercontent.com/u/25982949
   favorite_apps:
-    - firefox.desktop
+    - google-chrome.desktop
     - org.gnome.Terminal.desktop
     - org.gnome.Nautilus.desktop
     - code.desktop
     - md.obsidian.Obsidian.desktop
+    - org.zotero.Zotero.desktop
     - 1password.desktop
