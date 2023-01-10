@@ -16,8 +16,8 @@ system_package_repos:
     gpgcheck: yes
     gpgkey: https://downloads.1password.com/linux/keys/1password.asc
 
-  - name: visual-studio-code
-    description: Microsoft VScode
+  - name: code
+    description: Visual Studio Code
     baseurl: https://packages.microsoft.com/yumrepos/vscode
     enabled: yes
     gpgcheck: yes
@@ -32,15 +32,21 @@ system_package_repos:
 
   - name: kubernetes
     description: Kubernetes
-    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
     enabled: yes
     gpgcheck: yes
-    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    gpgkey: https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+  
+  - name: google-chrome
+    description: Google Chrome
+    baseurl: http://dl.google.com/linux/chrome/rpm/stable/$basearch
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://dl-ssl.google.com/linux/linux_signing_key.pub
 
 system_packages_local:
   - "https://github.com/twpayne/chezmoi/releases/download/v2.29.1/chezmoi-2.29.1-x86_64.rpm"  # Chezmoi
   - "https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm"  # Minikube
-  - "https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm"  # Google Chrome
 
 system_packages:
   present:
@@ -59,6 +65,7 @@ system_packages:
     - zsh
     # Browsers
     - firefox
+    - google-chrome-stable
     # Dev tools
     - '@Development Tools'
     - python3
@@ -91,9 +98,7 @@ pip_packages:
     - molecule-containers
     - molecule-podman
     - molecule-vagrant
-    - pytest
     - poetry
-    - build
 
 gnome:
   theme: "'Adwaita-dark'"
