@@ -4,18 +4,6 @@
     name: psutil
     state: present
 
-- name: Install Gnome extentions
-  become: yes
-  package:
-    name: gnome-shell-extension-appindicator
-    state: present
-
-- name: Enable Gnome extentions
-  dconf:
-    key: /org/gnome/shell/enabled-extensions
-    value: ['background-logo@fedorahosted.org', 'appindicatorsupport@rgcjonas.gmail.com']
-    state: present
-
 - name: Set dock layout in Gnome
   dconf:
     key: /org/gnome/shell/favorite-apps
@@ -32,18 +20,6 @@
   dconf:
     key: /org/gnome/desktop/interface/color-scheme
     value: "{{ gnome.color_scheme }}"
-    state: present
-
-- name: Set background image in Gnome
-  dconf:
-    key: /org/gnome/desktop/background/picture-uri
-    value: "{{ gnome.background }}"
-    state: present
-
-- name: Set background image in Gnome
-  dconf:
-    key: /org/gnome/desktop/background/picture-uri-dark
-    value: "{{ gnome.background_dark }}"
     state: present
 
 - name: Set profile image
