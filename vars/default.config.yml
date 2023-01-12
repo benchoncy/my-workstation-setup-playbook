@@ -104,8 +104,6 @@ pip_packages:
 gnome:
   theme: "'Adwaita-dark'"
   color_scheme: "'prefer-dark'"
-  background: "'file:///usr/share/backgrounds/fedora-workstation/calm.jpg'"
-  background_dark: "'file:///usr/share/backgrounds/fedora-workstation/calm.jpg'"
   avatar:
     src: https://avatars.githubusercontent.com/u/25982949
   favorite_apps:
