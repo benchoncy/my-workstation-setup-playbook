@@ -32,7 +32,7 @@ system_package_repos:
 
   - name: kubernetes
     description: Kubernetes
-    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch
     enabled: yes
     gpgcheck: yes
     gpgkey: https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
