@@ -1,5 +1,5 @@
 ---
-- name: Edit dnf config to increase download speed
+- name: Set dnf config
   become: yes
   lineinfile:
     path: /etc/dnf/dnf.conf
@@ -8,8 +8,6 @@
   loop:
     - key: "max_parallel_downloads"
       value: "10"
-    - key: "fastestmirror"
-      value: "True"
 
 - name: Enable the Free RPM Fusion repository
   become: yes
@@ -28,36 +26,3 @@
     disable_gpg_check: yes
   tags: ['rpm_fusion']
   when: enable_nonfree_rpm_fusion
-
-- name: Multimedia packages
-  become: yes
-  block:
-    - name: Install media plugins from RPM fusion (free)
-      dnf:
-        name:
-          - gstreamer1-plugins-bad-*
-          - gstreamer1-plugins-good-*
-          - gstreamer1-plugins-base
-          - gstreamer1-plugin-openh264
-          - gstreamer1-libav
-          - '@Multimedia'
-          - lame*
-        state: present
-        exclude:
-          - gstreamer1-plugins-bad-free-devel
-          - lame-devel
-
-    - name: Upgrade Multimedia group with optional packages
-      command:
-        cmd: dnf -y group upgrade --with-optional Multimedia
-      changed_when: false
-  tags: ['multimedia-plugins', 'rpm_fusion']
-  when: enable_free_rpm_fusion
-
-- name: Enable RPM Fusion Appstream data
-  become: yes
-  dnf:
-    name: '@core'
-    state: latest
-  tags: ['rpm_fusion']
-  when: enable_free_rpm_fusion or enable_nonfree_rpm_fusion
